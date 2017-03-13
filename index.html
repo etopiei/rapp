@@ -1,0 +1,79 @@
+<html>
+
+<head>
+
+<title>rapp</title>
+
+<link rel="Stylesheet" href="main.css" type="text/css" media=screen>
+<link rel="stylesheet" href="codemirror-5.24.2/lib/codemirror.css">
+<script src="codemirror-5.24.2/lib/codemirror.js"></script>
+
+</head>
+
+<body>
+
+<div class="toolbar shadow">
+
+	<center>
+	<h1 class="title">rapp</h1>
+	</center>
+
+<!-- This div should contain all the options to set up
+
+	This should include:
+
+		- The ability to share the code that connects a user to this session
+		- A save button to save the text of the current session's editors.
+		- A call/chat button to open up a chat session
+		- Options (Line Numbers, text size, language - for syntax highlighting)
+		- Exit session button
+ -->
+
+</div>
+
+<div class="content">
+
+<div id="tools">
+		<!-- Have a dropdown box to select langauge with id mode. -->
+
+		<span class="codeChoice">
+			<p> Select Language:
+			<select id="mode" onchange="change()">
+				<option value="python">Python</option>
+				<option value="php">PHP</option>
+				<option value="javascript">Javascript</option>
+				<option value="css">CSS</option>
+				<option value="htmlmixed">HTML</option>
+			</select>
+			</p>
+		</span>
+
+</div>
+
+<div class="chat">
+
+<!-- This container should house the editor for the programming partner - also use tinymce for this -->
+<center>
+<p> Chat </p>
+</center>
+
+<input type="text" name="message" class="chat-text" value="Enter Message">
+
+</div>
+
+<div class="editor">
+
+<!-- This container should house the editor for the driver - use tinymce for this -->
+
+<textarea id="code" name="codeArea" value=""></textarea>
+
+</div>
+
+</div>
+
+</body>
+
+<script src="loadmode.js"></script>
+<script src="createEditor.js"></script>
+
+</html>
