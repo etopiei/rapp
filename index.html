@@ -7,6 +7,7 @@
 <link rel="Stylesheet" href="main.css" type="text/css" media=screen>
 <link rel="stylesheet" href="codemirror-5.24.2/lib/codemirror.css">
 <script src="codemirror-5.24.2/lib/codemirror.js"></script>
+<script src="codemirror-5.24.2/addon/mode/loadmode.js"></script>
 
 </head>
 
@@ -36,17 +37,23 @@
 <div id="tools">
 		<!-- Have a dropdown box to select langauge with id mode. -->
 
-		<span class="codeChoice">
-			<p> Select Language:
-			<select id="mode" onchange="change()">
+	<span class="codeChoice">
+		<p>
+			Select Language:
+			<select id="mode" onchange="changeLanguage()">
 				<option value="python">Python</option>
 				<option value="php">PHP</option>
 				<option value="javascript">Javascript</option>
 				<option value="css">CSS</option>
 				<option value="htmlmixed">HTML</option>
 			</select>
-			</p>
-		</span>
+
+			Select theme:
+			<select id="themeSelector" onchange="changeTheme()">
+
+			</select>
+		</p>
+	</span>
 
 </div>
 
