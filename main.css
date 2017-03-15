@@ -27,16 +27,22 @@
 	float: left;
 	border-right: 4px solid;
 	border-color: #21633E;
+	 box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
     margin-bottom: -20px;
 }
 
 .chat {
 	float: right;
-	width: 19.6%;
+	width: 20%;
 	/* background-color: #DCE7AC;  */
 	background-color: floralwhite; /* Colour 2 - secondary 2*/
 	border-bottom: 4px solid;
 	border-color: #21633E;
+	box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
 }
 
 .content {
@@ -81,7 +87,7 @@
 }
 
 #tools {
-	height: 50px;
+	height: 54px;
 	width: 80%;
 	float: left;
 	/* background-color: #DCE7AC; */
@@ -89,6 +95,9 @@
 	border-right: 4px solid;
 	border-bottom: 4px solid;
 	border-color: #21633E;
+	 box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
 }
 
 .codeChoice {
