@@ -40,7 +40,7 @@
 }
 
 .content {
-	overflow: auto;
+	overflow: hidden;
 	margin-top: 80px;
 	margin-left: -10px;
 	margin-right: -10px;
@@ -56,9 +56,11 @@
 	position: fixed;
 	bottom: 0;
 	width: 19.6%;
-	height: 40px;
+	height: 50px;
     background: url(images/chat-bg3.png);
 	background-size: 100% 40px;
+	background-repeat: no-repeat;
+	background-position: center center;
 }
 
 .toolbar {
@@ -93,4 +95,9 @@
     position: absolute;
     top: 80px;
     left: 10px;
+}
+
+body {
+	margin: 0;
+	padding: 0;
 }
