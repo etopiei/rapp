@@ -1,0 +1,64 @@
+<html>
+    
+    <head>
+        
+        <link href="../mobile/mobile.css" rel="Stylesheet" type=text/css media="screen">
+        
+    </head>
+    
+    <body>
+        
+        <div class="toolbar">
+            
+			<center>
+				<h2 class="title"> rapp </h2>
+			</center>
+            
+        
+        </div>
+		
+		<div class="content">
+
+            <div class="tools">
+
+                <span class="codeChoice">
+		<p>
+			Select Language:
+			<select id="mode" onchange="changeLanguage()">
+				<option value="python">Python</option>
+				<option value="php">PHP</option>
+				<option value="javascript">Javascript</option>
+				<option value="css">CSS</option>
+				<option value="htmlmixed">HTML</option>
+			</select>
+
+			Select theme:
+			<select id="themeSelector" onchange="changeTheme()">
+
+			</select>
+		</p>
+
+        <a href="mobile-chat.html">
+            <img class="switch-icon" src="../images/switch.png">
+            <p> Switch to Chat </p>
+        </a>
+
+	</span>
+
+    <div class="editor">
+
+
+<textarea id="code" name="codeArea" value=""></textarea>
+
+        </div>
+
+            </div>
+
+        </div>
+
+    </body>
+
+    <script src="loadmode.js"></script>
+<script src="createEditor.js"></script>
+
+</html>
