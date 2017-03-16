@@ -110,3 +110,11 @@ body {
 	margin: 0;
 	padding: 0;
 }
+
+.submit-button-overlay {
+	position: fixed;
+	bottom: 0;
+	right: 0;
+	width: 3.25%;
+	height: 50px;
+}

@@ -107,8 +107,13 @@ function submitChatText(){
 
 	//send the chat messaeg to the server
 
-	var message = document.getElementById('chat-text').textContent;
+	var chatBox = document.getElementById('chat-text');
+
+	var message = chatBox.value;
 	console.log("Sending message: " + message);
+
+	//clear chat box
+	chatBox.value = "";
 
 }
 
