@@ -93,4 +93,23 @@ function changeLanguage() {
 	});
 }
 
+document.getElementById('chat-text').onkeypress = function(e) {
+
+	if (!e) e = window.event;
+	var keyCode = e.keyCode || e.whichl
+	if (keyCode == '13') {
+		submitChatText();
+	}
+
+}
+
+function submitChatText(){
+
+	//send the chat messaeg to the server
+
+	var message = document.getElementById('chat-text').textContent;
+	console.log("Sending message: " + message);
+
+}
+
 changeLanguage();
