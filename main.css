@@ -67,6 +67,7 @@
 	background-size: 100% 40px;
 	background-repeat: no-repeat;
 	background-position: center center;
+	outline: none;
 }
 
 .toolbar {
@@ -134,4 +135,12 @@ body {
 	width: 19.6%;
 	height: 80%;
 	display: table;
+}
+
+.wordwrap { 
+   white-space: pre-wrap;      /* CSS3 */   
+   white-space: -moz-pre-wrap; /* Firefox */    
+   white-space: -pre-wrap;     /* Opera <7 */   
+   white-space: -o-pre-wrap;   /* Opera 7 */    
+   word-wrap: break-word;      /* IE */
 }
