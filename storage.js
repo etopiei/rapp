@@ -29,14 +29,50 @@ function getThemeFromStorage() {
 
         var theme = getCookie("theme");
         return theme;
-        
+
     }
 
 }
 
-function languageStorage(){
+function languageStorage(mode){
 
     //SET CURRENT LANGUAGE TO STORAGE TO RESET ON RETURN
+
+    if (typeof(Storage) !== "undefined") {
+    
+        //store the theme in the local browser storage
+
+        localStorage.setItem("mode", mode);
+
+
+    } else {
+
+        // No Web Storage support
+        //store a cookie instead
+
+        document.cookie = "mode=" + mode;
+
+    }
+
+}
+
+function getLanguageFromStorage() {
+
+    if (typeof(Storage) !== "undefined") {
+
+        var mode = localStorage.getItem("mode");
+
+    } else {
+
+        var mode = getCookie("mode");
+    }    
+
+    if (mode == "") {
+        return "python";
+    }
+    else {
+        return mode;
+    }
 
 }
 

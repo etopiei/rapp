@@ -75,7 +75,7 @@ function setOriginalTheme(){
 
 		//elegant theme
 		themeSelector.selectedIndex = 15;
-		setOriginalTheme();
+		setOriginalTheme(); //IS THIS NECESSARY?
 
 	}
 
@@ -120,6 +120,9 @@ function changeLanguage() {
 	CodeMirror.requireMode(mode, ()=> {
 		editor.setOption("mode", mode); 
 	});
+
+	languageStorage(mode);
+
 }
 
 document.getElementById('chat-text').onkeypress = function(e) {
@@ -169,4 +172,6 @@ function displayMessage(messageText, username) {
 }
 
 setOriginalTheme();
+var storedLanguage = getLanguageFromStorage();
+document.getElementById('mode').value = storedLanguage;
 changeLanguage();
