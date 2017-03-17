@@ -69,7 +69,7 @@ for (i in themes) {
 
 function setOriginalTheme(){
 
-	var storedTheme = localStorage.getItem("theme");
+	var storedTheme = getThemeFromStorage();
 
 	if (storedTheme == "") {
 
