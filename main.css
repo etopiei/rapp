@@ -118,3 +118,20 @@ body {
 	width: 3.25%;
 	height: 50px;
 }
+
+#messages-display {
+	background-color: transparent;
+	border-color: transparent;
+	display: table-cell;
+    vertical-align: bottom;
+	padding: 2px;
+}
+
+#message-container {
+	position: fixed;
+	bottom: 50px;
+	right: 0;
+	width: 19.6%;
+	height: 80%;
+	display: table;
+}

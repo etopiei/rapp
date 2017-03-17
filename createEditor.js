@@ -105,15 +105,37 @@ document.getElementById('chat-text').onkeypress = function(e) {
 
 function submitChatText(){
 
-	//send the chat messaeg to the server
-
 	var chatBox = document.getElementById('chat-text');
 
 	var message = chatBox.value;
-	console.log("Sending message: " + message);
+
+	if (message == "") {
+		return;
+	}
+
+	//this is temporary to display chat message locally, eventually they will be just sent to the server
+
+	displayMessage(message);
 
 	//clear chat box
 	chatBox.value = "";
+
+}
+
+function displayMessage(messageText, username) {
+
+	if (username == undefined) {
+		username = "Guest"
+	}
+
+	if (document.getElementById('messages-display').innerHTML == "") {
+		textToDisplay = username + ": " + messageText;
+	}
+	else {
+		textToDisplay = "<br>" + username + ": " + messageText;
+	}
+
+	document.getElementById('messages-display').innerHTML+= textToDisplay;
 
 }
 
