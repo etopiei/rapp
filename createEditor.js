@@ -8,54 +8,54 @@ var modeInput = document.getElementById("mode");
 CodeMirror.modeURL = "codemirror-5.24.2/mode/%N/%N.js";
 
 var themes = [
-	{file: "3024-day.css", loaded: false},
-	{file: "3024-night.css", loaded: false},
-	{file: "abcdef.css", loaded: false},
-	{file: "ambiance.css", loaded: false},
-	{file: "ambiance-mobile.css", loaded: false},
-	{file: "base16-dark.css", loaded: false},
-	{file: "base16-light.css", loaded: false},
-	{file: "bespin.css", loaded: false},
-	{file: "blackboard.css", loaded: false},
-	{file: "cobalt.css", loaded: false},
-	{file: "colorforth.css", loaded: false},
-	{file: "dracula.css", loaded: false},
-	{file: "duotone-dark.css", loaded: false},
-	{file: "duotone-light.css", loaded: false},
-	{file: "eclipse.css", loaded: false},
-	{file: "elegant.css", loaded: false},
-	{file: "erlang-dark.css", loaded: false},
-	{file: "hopscotch.css", loaded: false},
-	{file: "icecoder.css", loaded: false},
-	{file: "isotope.css", loaded: false},
-	{file: "lesser-dark.css", loaded: false},
-	{file: "liquibyte.css", loaded: false},
-	{file: "material.css", loaded: false},
-	{file: "mbo.css", loaded: false},
-	{file: "mdn-like.css", loaded: false},
-	{file: "midnight.css", loaded: false},
-	{file: "monokai.css", loaded: false},
-	{file: "neat.css", loaded: false},
-	{file: "neo.css", loaded: false},
-	{file: "night.css", loaded: false},
-	{file: "panda-syntax.css", loaded: false},
-	{file: "paraiso-dark.css", loaded: false},
-	{file: "paraiso-light.css", loaded: false},
-	{file: "pastel-on-dark.css", loaded: false},
-	{file: "railscasts.css", loaded: false},
-	{file: "rubyblue.css", loaded: false},
-	{file: "seti.css", loaded: false},
-	{file: "solarized.css", loaded: false},
-	{file: "the-matrix.css", loaded: false},
-	{file: "tomorrow-night-bright.css", loaded: false},
-	{file: "tomorrow-night-eighties.css", loaded: false},
-	{file: "ttcn.css", loaded: false},
-	{file: "twilight.css", loaded: false},
-	{file: "vibrant-ink.css", loaded: false},
-	{file: "xq-dark.css", loaded: false},
-	{file: "xq-light.css", loaded: false},
-	{file: "yeti.css", loaded: false},
-	{file: "zenburn.css", loaded: false}
+	{name: "3024-day", loaded: false},
+	{name: "3024-night", loaded: false},
+	{name: "abcdef", loaded: false},
+	{name: "ambiance", loaded: false},
+	{name: "ambiance-mobile", loaded: false},
+	{name: "base16-dark", loaded: false},
+	{name: "base16-light", loaded: false},
+	{name: "bespin", loaded: false},
+	{name: "blackboard", loaded: false},
+	{name: "cobalt", loaded: false},
+	{name: "colorforth", loaded: false},
+	{name: "dracula", loaded: false},
+	{name: "duotone-dark", loaded: false},
+	{name: "duotone-light", loaded: false},
+	{name: "eclipse", loaded: false},
+	{name: "elegant", loaded: false},
+	{name: "erlang-dark", loaded: false},
+	{name: "hopscotch", loaded: false},
+	{name: "icecoder", loaded: false},
+	{name: "isotope", loaded: false},
+	{name: "lesser-dark", loaded: false},
+	{name: "liquibyte", loaded: false},
+	{name: "material", loaded: false},
+	{name: "mbo", loaded: false},
+	{name: "mdn-like", loaded: false},
+	{name: "midnight", loaded: false},
+	{name: "monokai", loaded: false},
+	{name: "neat", loaded: false},
+	{name: "neo", loaded: false},
+	{name: "night", loaded: false},
+	{name: "panda-syntax", loaded: false},
+	{name: "paraiso-dark", loaded: false},
+	{name: "paraiso-light", loaded: false},
+	{name: "pastel-on-dark", loaded: false},
+	{name: "railscasts", loaded: false},
+	{name: "rubyblue", loaded: false},
+	{name: "seti", loaded: false},
+	{name: "solarized", loaded: false},
+	{name: "the-matrix", loaded: false},
+	{name: "tomorrow-night-bright", loaded: false},
+	{name: "tomorrow-night-eighties", loaded: false},
+	{name: "ttcn", loaded: false},
+	{name: "twilight", loaded: false},
+	{name: "vibrant-ink", loaded: false},
+	{name: "xq-dark", loaded: false},
+	{name: "xq-light", loaded: false},
+	{name: "yeti", loaded: false},
+	{name: "zenburn", loaded: false}
 ];
 
 var themeSelector = document.getElementById("themeSelector");
@@ -63,24 +63,53 @@ for (i in themes) {
 	let option = document.createElement("option");
 		
 		//remove the .css
-	option.innerText = themes[i].file.split('.')[0];
+	option.innerText = themes[i].name;
 	themeSelector.appendChild(option);
 }
 
-	//elegant theme
-themeSelector.selectedIndex = 15;
+function setOriginalTheme(){
+
+	var storedTheme = localStorage.getItem("theme");
+
+	if (storedTheme == "") {
+
+		//elegant theme
+		themeSelector.selectedIndex = 15;
+		setOriginalTheme();
+
+	}
+
+	else {
+
+		for (var i = 0; i < themes.length; i++) {
+
+			if (themes[i].name == storedTheme) {
+
+				themeSelector.selectedIndex = i;
+				break;
+
+			}
+
+		}
+
+		changeTheme();
+
+	}
+
+}
 
 function changeTheme() {
 	let index = themeSelector.selectedIndex;
-	let themeFile = themes[index].file;
+	let themeFile = themes[index].name;
+	themeStorage(themeFile);
 	loadTheme(themeFile);
-	editor.setOption("theme", themes[index].file.split('.')[0]); 
+	editor.setOption("theme", themes[index].name); 
 }
 
-function loadTheme(theme) {
+function loadTheme(theme) { //THEME PARAMTER SHOULD BE OF FORM: "name"
 	let elem = document.createElement("link");
 	elem.setAttribute("rel", "stylesheet");
-	elem.setAttribute("href", "codemirror-5.24.2/theme/" + theme);
+	elem.setAttribute("href", "codemirror-5.24.2/theme/" + theme + ".css");
 	document.getElementsByTagName("head")[0].appendChild(elem);
 }
 
@@ -139,4 +168,5 @@ function displayMessage(messageText, username) {
 
 }
 
+setOriginalTheme();
 changeLanguage();
