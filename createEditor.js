@@ -175,3 +175,7 @@ setOriginalTheme();
 var storedLanguage = getLanguageFromStorage();
 document.getElementById('mode').value = storedLanguage;
 changeLanguage();
+
+var storedText = retrieveFile();
+console.log(storedText);
+editor.setValue(storedText);
