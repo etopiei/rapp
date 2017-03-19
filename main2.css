@@ -1,0 +1,69 @@
+@font-face {
+    font-family: kayak;
+    src: url(kayak-sans-light.otf);
+}
+
+.header {
+    background-color: #21633E;
+	position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 999;
+    width: 100%;
+    height: 80px;
+}
+
+#bottom {
+    margin-top: 80px;
+    display: flex;
+}
+
+#header-title {
+    margin-top: 20px;
+    width: 100%;
+    color: white;
+    font-family: kayak;
+    text-align: center;
+}
+
+.left-side {
+    height: 100%;
+    flex: 1;
+}
+
+.right-side {
+    width: 20%;
+    float: right;
+}
+
+#toolbar {
+    position: static;
+    width: 100%;
+    height: 50px;
+    background-color: floralwhite;
+}
+
+#content {
+    width: 100%;
+    height: 100%;
+}
+
+#chat-heading {
+    margin-top: 12.5px;
+}
+
+#code {
+    width: 100%;
+    height: 100%;
+}
+
+#code-choice {
+    padding-top: 12.5px;
+    padding-left: 5px;
+}
+
+* {
+   /*  border: 2px solid; */
+    margin: 0px;
+    padding: 0px;
+}

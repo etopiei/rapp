@@ -1,0 +1,83 @@
+<html>
+
+    <head>
+
+        <title>rapp</title>
+
+        <link rel="Stylesheet" href="main2.css" type="text/css" media=screen>
+        <link rel="stylesheet" href="codemirror-5.24.2/lib/codemirror.css">
+        <script src="codemirror-5.24.2/lib/codemirror.js"></script>
+        <script src="codemirror-5.24.2/addon/mode/loadmode.js"></script>
+
+    </head>
+
+    <body>
+
+        <div id="content">
+
+             <div class="header">
+
+                <h1 id="header-title">rapp</h1>
+
+            </div>
+
+            <div id="bottom">
+                <div class="left-side">
+
+                    <div id="toolbar">
+
+                        <div id="code-choice">
+		                    <p>
+			                Select Language:
+                                <select id="mode" onchange="changeLanguage()">
+                                    <option value="python">Python</option>
+                                    <option value="php">PHP</option>
+                                    <option value="javascript">Javascript</option>
+                                    <option value="css">CSS</option>
+                                    <option value="htmlmixed">HTML</option>
+                                </select>
+
+                                Select theme:
+                                <select id="themeSelector" onchange="changeTheme()">
+
+                                </select>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div id="text-area">
+
+                        <textarea id="code" name="codeArea" value=""></textarea>
+
+                    </div>
+
+                </div>
+
+                <div class="right-side">
+
+                    <div id="chat-heading">
+
+                        <p> Chat </p>
+
+                    </div>
+
+                    <div id="chat-display">
+
+                    </div>
+
+                    <div id="message-field">
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </body>
+
+<script src="storage.js"></script>
+<script src="loadmode.js"></script> <!-- IS THIS NECESSARY? IS IT LOADED AT START? -->
+<script src="createEditor.js"></script>
+<script src="serverCommunication.js"></script>
+
+</html>
