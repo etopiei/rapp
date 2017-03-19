@@ -76,9 +76,25 @@ function getLanguageFromStorage() {
 
 }
 
-function fileStorage() {
+function retrieveFile() {
 
-    //SET FILE CONTENTS IN STORAGE FOR LATER OR IF DISCONNECT
+    //RETRIEVE THE LAST FILE THAT WAS WORKED ON
+
+    if(typeof(Storage) !== "undefined") {
+
+        var textContent = localStorage.getItem("code");
+
+    } else {
+
+        //No web storage support - bad luck.
+
+    }
+
+    if (textContent == null) {
+        textContent = "";
+    }
+
+    return textContent; 
 
 }
 
