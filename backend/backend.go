@@ -34,6 +34,9 @@ var upgrader = websocket.Upgrader{
 	//In this function, id1 is the one that requested pairing
 func makePair(user1 *userInfo, id2 int) {
 	var user2 = users[id2]
+	if user2 == nil {
+		return
+	}
 	if user2.pair != nil {
 		return
 	}
@@ -51,51 +54,71 @@ func onConnect(w http.ResponseWriter, req *http.Request) {
 	}
 
 	var id = 0
+	var user *userInfo
 	for users[id] == nil {
 		id = rand.Int()
+		user = &userInfo{id: id, pair: nil, socket: c, ch: make(chan string)}
+		users[id] = user
 	}
-	var user = &userInfo{id: id, pair: nil, socket: c, ch: make(chan string)}
-	users[id] = user
-
 	defer c.Close()
 	for {
 		if (user.pair != nil) {
-				//This is temporary until I can read the websocket documentation
-				//and figure out how to read a string from the socket
-
-				//WARNING: DO NOT RUN THIS UNTIL IT'S FIXED
-			var s = "hi"
-			user.ch <- s
+			var t, m, err = c.ReadMessage()
+			if err != nil {
+				fmt.Println("WTF")
+				fmt.Println(err)
+				continue
+			}
+			if t != websocket.TextMessage {
+				fmt.Println("Not a text message.")
+				continue
+			}
+			user.ch <- string(m)
 			continue
 		}
 		var j = make(map[string]interface{})
 		var err = c.ReadJSON(&j)
 		if err != nil {
+			fmt.Println("WTF is happening")
 			fmt.Println(err)
 			break
 		}
-		var c = j["text"].([]interface{})[0].(string)
 		var messageType, ok = j["messageType"].(string)
 		if !ok {
 			continue
 		}
 		switch(messageType) {
 		case "pairRequest":
-			var partnerId, ok = j["partnerId"].(int)
+			var partnerId, ok = j["partnerId"].(float64)
 			if !ok {
+				fmt.Println("Not okay")
 				continue
 			}
-			makePair(user.id, partnerId)
+			makePair(user, int(partnerId))
 			if user.pair == nil {
-				//TODO: write to the socket a message saying connection was unsuccessful
+				var msg = make(map[string]interface{})
+				msg["messageType"] = "connectionUnsuccessful"
+				msg["id"] = partnerId
+				user.socket.WriteJSON(msg)
 			}
 		}
-		fmt.Printf("%s", c)
 	}
 }
 
 func pairLoop(pair *pairInfo) {
 	//TODO: Send a message to both users saying that they have connected
+	//var msg1 = interface{"messageType": "connection", "id": pair.user2.id}
+	//var msg2 = interface{"messageType": "connection", "id": pair.user1.id}
+	var msg1 = make(map[string]interface{})
+	var msg2 = make(map[string]interface{})
+	msg1["messageType"] = "connection"
+	msg2["messageType"] = "connection"
+
+	msg1["id"] = pair.user2.id
+	msg2["id"] = pair.user1.id
+
+	pair.user1.socket.WriteJSON(msg1)
+	pair.user2.socket.WriteJSON(msg2)
 	for {
 		var str = ""
 		select {
