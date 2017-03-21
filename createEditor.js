@@ -160,14 +160,14 @@ function displayMessage(messageText, username) {
 		username = "Guest"
 	}
 
-	if (document.getElementById('messages-display').innerHTML == "") {
+	if (document.getElementById('chat-messages').innerHTML == "") {
 		textToDisplay = username + ": " + messageText;
 	}
 	else {
 		textToDisplay = "<br>" + username + ": " + messageText;
 	}
 
-	document.getElementById('messages-display').innerHTML+= textToDisplay;
+	document.getElementById('chat-messages').innerHTML+= textToDisplay;
 
 }
 
