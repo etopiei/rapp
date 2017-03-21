@@ -30,17 +30,23 @@
 		                    <p>
 			                Select Language:
                                 <select id="mode" onchange="changeLanguage()">
-                                    <option value="python">Python</option>
-                                    <option value="php">PHP</option>
-                                    <option value="javascript">Javascript</option>
-                                    <option value="css">CSS</option>
-                                    <option value="htmlmixed">HTML</option>
-                                </select>
+
+                                <select>
 
                                 Select theme:
                                 <select id="themeSelector" onchange="changeTheme()">
 
                                 </select>
+
+				Select keymap:
+                                <select id="keymap-selector" onchange="changeKeyMap()">
+                                    <option value="default">Default</option>
+                                    <option value="vim">ViM</option>
+                                    <option value="emacs">Emacs</option>
+                                    <option value="sublime">Sublime</option>
+                                </select>
+
+				
                             </p>
                         </div>
                     </div>
@@ -81,5 +87,8 @@
 <script src="loadmode.js"></script> <!-- IS THIS NECESSARY? IS IT LOADED AT START? -->
 <script src="createEditor.js"></script>
 <script src="serverCommunication.js"></script>
+<script src="codemirror-5.24.2/keymap/emacs.js"></script>
+<script src="codemirror-5.24.2/keymap/sublime.js"></script>
+<script src="codemirror-5.24.2/keymap/vim.js"></script>
 
 </html>

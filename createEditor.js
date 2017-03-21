@@ -58,6 +58,139 @@ var themes = [
 	{name: "zenburn", loaded: false}
 ];
 
+var modes = [
+	"apl",
+	"asciiarmor",
+	"asn.1",
+	"asterisk",
+	"brainfuck",
+	"clike",
+	"clojure",
+	"cmake",
+	"cobol",
+	"coffeescript",
+	"commonlisp",
+	"crystal",
+	"css",
+	"cypher",
+	"d",
+	"dart",
+	"diff",
+	"django",
+	"dockerfile",
+	"dtd",
+	"dylan",
+	"ebnf",
+	"ecl",
+	"eiffel",
+	"elm",
+	"erlang",
+	"factor",
+	"fcl",
+	"forth",
+	"fortran",
+	"gas",
+	"gfm",
+	"gherkin",
+	"go",
+	"groovy",
+	"haml",
+	"handlebars",
+	"haskell",
+	"haskell-literate",
+	"haxe",
+	"htmlembedded",
+	"htmlmixed",
+	"http",
+	"idl",
+	"index.html",
+	"javascript",
+	"jinja2",
+	"jsx",
+	"julia",
+	"livescript",
+	"lua",
+	"markdown",
+	"mathematica",
+	"mbox",
+	"meta.js",
+	"mirc",
+	"mllike",
+	"modelica",
+	"mscgen",
+	"mumps",
+	"nginx",
+	"nsis",
+	"ntriples",
+	"octave",
+	"oz",
+	"pascal",
+	"pegjs",
+	"perl",
+	"php",
+	"pig",
+	"powershell",
+	"properties",
+	"protobuf",
+	"pug",
+	"puppet",
+	"python",
+	"q",
+	"r",
+	"rpm",
+	"rst",
+	"ruby",
+	"rust",
+	"sas",
+	"sass",
+	"scheme",
+	"shell",
+	"sieve",
+	"slim",
+	"smalltalk",
+	"smarty",
+	"solr",
+	"soy",
+	"sparql",
+	"spreadsheet",
+	"sql",
+	"stex",
+	"stylus",
+	"swift",
+	"tcl",
+	"textile",
+	"tiddlywiki",
+	"tiki",
+	"toml",
+	"tornado",
+	"troff",
+	"ttcn",
+	"ttcn-cfg",
+	"turtle",
+	"twig",
+	"vb",
+	"vbscript",
+	"velocity",
+	"verilog",
+	"vhdl",
+	"vue",
+	"webidl",
+	"xml",
+	"xquery",
+	"yacas",
+	"yaml",
+	"yaml-frontmatter",
+	"z80"
+];
+
+for (i in modes) {
+	let option = document.createElement("option");
+	option.innerText = modes[i];
+	option.value = modes[i];
+	modeInput.appendChild(option);
+}
+
+
 var themeSelector = document.getElementById("themeSelector");
 for (i in themes) {
 	let option = document.createElement("option");
@@ -106,14 +239,21 @@ function changeTheme() {
 	editor.setOption("theme", themes[index].name); 
 }
 
-function loadTheme(theme) { //THEME PARAMTER SHOULD BE OF FORM: "name"
+function loadTheme(theme) { //THEME PARAMETER SHOULD BE OF FORM: "name"
 	let elem = document.createElement("link");
 	elem.setAttribute("rel", "stylesheet");
 	elem.setAttribute("href", "codemirror-5.24.2/theme/" + theme + ".css");
 	document.getElementsByTagName("head")[0].appendChild(elem);
 }
 
+var keyMapSelector = document.getElementById("keymap-selector");
 
+function changeKeyMap() {
+	let value = keyMapSelector[keyMapSelector.selectedIndex].value;
+	editor.setOption("keyMap", value);
+}
+	
+modeInput.selectedIndex = 0;
 function changeLanguage() {
 	let mode = modeInput.options[modeInput.selectedIndex].value;
 	console.log(mode);
@@ -125,6 +265,7 @@ function changeLanguage() {
 
 }
 
+/*
 document.getElementById('chat-text').onkeypress = function(e) {
 
 	if (!e) e = window.event;
@@ -134,6 +275,7 @@ document.getElementById('chat-text').onkeypress = function(e) {
 	}
 
 }
+*/
 
 function submitChatText(){
 
