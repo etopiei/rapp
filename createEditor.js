@@ -265,7 +265,6 @@ function changeLanguage() {
 
 }
 
-/*
 document.getElementById('chat-text').onkeypress = function(e) {
 
 	if (!e) e = window.event;
@@ -275,7 +274,6 @@ document.getElementById('chat-text').onkeypress = function(e) {
 	}
 
 }
-*/
 
 function submitChatText(){
 
@@ -302,14 +300,14 @@ function displayMessage(messageText, username) {
 		username = "Guest"
 	}
 
-	if (document.getElementById('chat-messages').innerHTML == "") {
+	if (document.getElementById('messages-display').innerHTML == "") {
 		textToDisplay = username + ": " + messageText;
 	}
 	else {
 		textToDisplay = "<br>" + username + ": " + messageText;
 	}
 
-	document.getElementById('chat-messages').innerHTML+= textToDisplay;
+	document.getElementById('messages-display').innerHTML+= textToDisplay;
 
 }
 

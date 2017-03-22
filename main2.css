@@ -12,7 +12,7 @@
 .header {
     background-color: #21633E;
     width: 100%;
-    height: 5%;
+    height: 10%;
 }
 
 #bottom {
@@ -38,6 +38,7 @@
     width: 20%;
     float: right;
     background: floralwhite;
+    position: relative;
 }
 
 #toolbar {
@@ -79,13 +80,16 @@
 }
 
 #message-field {
+    position: absolute;
+    bottom: 0;
     width: 100%;
-    height: 5%;
+    height: 8%;
 }
 
 #chat-text {
     width: 100%;
     outline: none;
+    height: 100%;
 }
 
 #chat-messages {
@@ -98,10 +102,11 @@
 
 #chat-display {
     width: 100%;
-    height: 88%;
+    height: 85%;
 }
 
 #messages-display {
+    margin-bottom: 5%;
     bottom: 40px;
 	background-color: transparent;
 	border-color: transparent;
@@ -109,7 +114,7 @@
 }
 
 .wordwrap { 
-	overflow: scroll;
+   overflow: scroll;
    white-space: pre-wrap;      /* CSS3 */   
    white-space: -moz-pre-wrap; /* Firefox */    
    white-space: -pre-wrap;     /* Opera <7 */   
