@@ -97,7 +97,7 @@
     top: 100%;
     transform: translateY(-100%);
     max-height: 100%;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 
 #chat-display {
