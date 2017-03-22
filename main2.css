@@ -17,7 +17,7 @@
 
 #bottom {
     display: flex;
-    height: 95%;
+    height: 90%;
     overflow:hidden;
 }
 
@@ -115,6 +115,7 @@
 
 .wordwrap { 
    overflow: scroll;
+   margin-left: 5px;
    white-space: pre-wrap;      /* CSS3 */   
    white-space: -moz-pre-wrap; /* Firefox */    
    white-space: -pre-wrap;     /* Opera <7 */   
