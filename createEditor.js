@@ -304,7 +304,7 @@ function displayMessage(messageText, username) {
 		textToDisplay = username + ": " + messageText;
 	}
 	else {
-		textToDisplay = "<br>" + username + ": " + messageText;
+		textToDisplay = username + ": " + messageText + "<br>";
 	}
 
 	document.getElementById('messages-display').innerHTML+= textToDisplay;
