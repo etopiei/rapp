@@ -5,6 +5,7 @@ import (
 	"github.com/gorilla/websocket"
 	"net/http"
 	"math/rand"
+	"encoding/json"
 )
 
 var users map[int]*userInfo
@@ -14,14 +15,14 @@ type message struct {
 }
 
 type pairInfo struct {
-	user1 *userInfo
-	user2 *userInfo
+	driver *userInfo
+	observer *userInfo
 }
 
 type userInfo struct {
 	id int
 	socket *websocket.Conn
-	ch chan string
+	ch chan []byte
 	pair *pairInfo
 }
 
@@ -32,7 +33,7 @@ var upgrader = websocket.Upgrader{
 }
 
 	//In this function, id1 is the one that requested pairing
-func makePair(user1 *userInfo, id2 int) {
+func makePair(user1 *userInfo, id2 int, user1Driver bool) {
 	var user2 = users[id2]
 	if user2 == nil {
 		return
@@ -40,11 +41,66 @@ func makePair(user1 *userInfo, id2 int) {
 	if user2.pair != nil {
 		return
 	}
-	var pair = &pairInfo{user1, user2}
+	var pair *pairInfo
+	if user1Driver {
+		pair = &pairInfo{driver: user1, observer: user2}
+	} else {
+		pair = &pairInfo{driver: user2, observer: user1}
+	}
 	user1.pair = pair
 	user2.pair = pair
 	go pairLoop(pair)
 }
+
+func handleNonPairMessage(u *userInfo) {
+	var j = make(map[string]interface{})
+	var err = u.socket.ReadJSON(&j)
+	if err != nil {
+		fmt.Println("WTF is happening")
+		fmt.Println(err)
+		return
+	}
+	var messageType, ok = j["messageType"].(string)
+	if !ok {
+		return
+	}
+	switch(messageType) {
+	case "pairRequest":
+		var tmp, ok = j["partnerId"].(float64)
+		if !ok {
+			fmt.Println("Not okay")
+			return
+		}
+		var partnerId = int(tmp)
+		var isDriver, ok2 = j["isDriver"].(bool)
+		if !ok2 {
+			fmt.Println("Not okay")
+			return
+		}
+		makePair(u, partnerId, isDriver)
+		if u.pair == nil {
+			var msg = make(map[string]interface{})
+			msg["messageType"] = "connectionUnsuccessful"
+			msg["id"] = partnerId
+			u.socket.WriteJSON(msg)
+		}
+	}
+}
+
+func sendToPairChannel(u *userInfo) {
+	var t, m, err = u.socket.ReadMessage()
+	if err != nil {
+		fmt.Println("WTF")
+		fmt.Println(err)
+		return
+	}
+	if t != websocket.TextMessage {
+		fmt.Println("Not a text message.")
+		return
+	}
+	u.ch <- m
+}
+
 
 func onConnect(w http.ResponseWriter, req *http.Request) {
 	var c, err = upgrader.Upgrade(w, req, nil)
@@ -57,75 +113,79 @@ func onConnect(w http.ResponseWriter, req *http.Request) {
 	var user *userInfo
 	for users[id] == nil {
 		id = rand.Int()
-		user = &userInfo{id: id, pair: nil, socket: c, ch: make(chan string)}
+		user = &userInfo{id: id, pair: nil, socket: c, ch: make(chan []byte)}
 		users[id] = user
 	}
 	defer c.Close()
 	for {
 		if (user.pair != nil) {
-			var t, m, err = c.ReadMessage()
-			if err != nil {
-				fmt.Println("WTF")
-				fmt.Println(err)
-				continue
-			}
-			if t != websocket.TextMessage {
-				fmt.Println("Not a text message.")
-				continue
-			}
-			user.ch <- string(m)
+			sendToPairChannel(user)
 			continue
 		}
-		var j = make(map[string]interface{})
-		var err = c.ReadJSON(&j)
-		if err != nil {
-			fmt.Println("WTF is happening")
-			fmt.Println(err)
-			break
-		}
-		var messageType, ok = j["messageType"].(string)
-		if !ok {
-			continue
-		}
-		switch(messageType) {
-		case "pairRequest":
-			var partnerId, ok = j["partnerId"].(float64)
-			if !ok {
-				fmt.Println("Not okay")
-				continue
-			}
-			makePair(user, int(partnerId))
-			if user.pair == nil {
-				var msg = make(map[string]interface{})
-				msg["messageType"] = "connectionUnsuccessful"
-				msg["id"] = partnerId
-				user.socket.WriteJSON(msg)
-			}
-		}
+		handleNonPairMessage(user)
 	}
 }
 
+
+func writeConfirmationMessage(pair *pairInfo) {
+	var msgDriver = make(map[string]interface{})
+	var msgObserver = make(map[string]interface{})
+	msgDriver["messageType"] = "connection"
+	msgObserver["messageType"] = "connection"
+
+	msgDriver["id"] = pair.observer.id
+	msgObserver["id"] = pair.driver.id
+
+	pair.driver.socket.WriteJSON(msgDriver)
+	pair.observer.socket.WriteJSON(msgObserver)
+}
+
+
 func pairLoop(pair *pairInfo) {
-	//TODO: Send a message to both users saying that they have connected
-	//var msg1 = interface{"messageType": "connection", "id": pair.user2.id}
-	//var msg2 = interface{"messageType": "connection", "id": pair.user1.id}
-	var msg1 = make(map[string]interface{})
-	var msg2 = make(map[string]interface{})
-	msg1["messageType"] = "connection"
-	msg2["messageType"] = "connection"
-
-	msg1["id"] = pair.user2.id
-	msg2["id"] = pair.user1.id
-
-	pair.user1.socket.WriteJSON(msg1)
-	pair.user2.socket.WriteJSON(msg2)
+	writeConfirmationMessage(pair)
 	for {
-		var str = ""
+		var msg []byte
 		select {
-		case str = <- pair.user1.ch:
-			pair.user2.socket.WriteMessage(websocket.TextMessage, []byte(str))
-		case str = <- pair.user2.ch:
-			pair.user1.socket.WriteMessage(websocket.TextMessage, []byte(str))
+		case msg = <- pair.driver.ch:
+			var j map[string]interface{}
+			json.Unmarshal(msg, &j)
+			var messageType, ok = j["messageType"].(string)
+			if !ok {
+				continue
+			}
+			switch(messageType) {
+			case "chatMessage":
+				var chatMessage, ok = j["chatMessage"].(string)
+				if !ok {
+					continue
+				}
+				var outMsg = make(map[string]interface{})
+				outMsg["senderId"] = pair.driver.id
+				outMsg["messageType"] = "chatMessage"
+				outMsg["chatMessage"] = chatMessage
+				pair.driver.socket.WriteJSON(outMsg)
+				pair.observer.socket.WriteJSON(outMsg)
+			}
+		case msg = <- pair.observer.ch:
+			var j map[string]interface{}
+			json.Unmarshal(msg, &j)
+			var messageType, ok = j["messageType"].(string)
+			if !ok {
+				continue
+			}
+			switch(messageType) {
+			case "chatMessage":
+				var chatMessage, ok = j["chatMessage"].(string)
+				if !ok {
+					continue
+				}
+				var outMsg = make(map[string]interface{})
+				outMsg["senderId"] = pair.driver.id
+				outMsg["messageType"] = "chatMessage"
+				outMsg["chatMessage"] = chatMessage
+				pair.driver.socket.WriteJSON(outMsg)
+				pair.observer.socket.WriteJSON(outMsg)
+			}
 		}
 	}
 }

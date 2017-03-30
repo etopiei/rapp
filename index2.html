@@ -14,6 +14,14 @@
 
     <body>
 
+	    <div id="background-dimmer" onclick="hidePopups()"></div>
+	<div id="start-pair-popup">
+		<p>Your id is <span class="variable" id="user-id"></span></p>
+		<input type="text" placeholder="Partner's ID" />
+		<span class="button">Connect</span>
+
+	</div>
+
         <div id="content">
 
              <div class="header">
@@ -46,7 +54,9 @@
                                     <option value="emacs">Emacs</option>
                                     <option value="sublime">Sublime</option>
                                 </select>
-
+				<span class="button" onclick="displayPairPopup()">
+					Start Pairing
+				</span>
 				
                             </p>
                         </div>
@@ -88,6 +98,7 @@
 <script src="loadmode.js"></script> <!-- IS THIS NECESSARY? IS IT LOADED AT START? -->
 <script src="createEditor.js"></script>
 <script src="serverCommunication.js"></script>
+<script src="user-interface.js"></script>
 <script src="codemirror-5.24.2/keymap/emacs.js"></script>
 <script src="codemirror-5.24.2/keymap/sublime.js"></script>
 <script src="codemirror-5.24.2/keymap/vim.js"></script>
