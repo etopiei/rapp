@@ -26,7 +26,6 @@ var themes = [
 	{name: "elegant", loaded: false},
 	{name: "erlang-dark", loaded: false},
 	{name: "hopscotch", loaded: false},
-	{name: "icecoder", loaded: false},
 	{name: "isotope", loaded: false},
 	{name: "lesser-dark", loaded: false},
 	{name: "liquibyte", loaded: false},
