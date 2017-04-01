@@ -152,7 +152,7 @@
 	position: absolute;
 	width: 100%;
 	height: 100%;
-	z-index: 1;
+	z-index: 10;
 	background: rgba(0, 0, 0, 0.6);
 	top: 0;
 	left: 0;
@@ -163,11 +163,20 @@
 	position: absolute;
 	width: 30%;
 	height: 30%;
-	z-index: 2;
+	z-index: 11;
 	background: white;
 	margin: auto;
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
+	font-size: 2em;
+	padding: 1em;
 }
-	
+
+#start-pair-popup p {
+	height: 50%;
+}
+
+#start-pair-popup input {
+	font-size: 1em;
+}

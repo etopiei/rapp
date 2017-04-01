@@ -17,8 +17,8 @@
 	    <div id="background-dimmer" onclick="hidePopups()"></div>
 	<div id="start-pair-popup">
 		<p>Your id is <span class="variable" id="user-id"></span></p>
-		<input type="text" placeholder="Partner's ID" />
-		<span class="button">Connect</span>
+		<input type="text" placeholder="Partner's ID" id="partner-id-input" />
+		<span class="button" onclick="sendPairRequest()">Connect</span>
 
 	</div>
 
@@ -95,7 +95,6 @@
     </body>
 
 <script src="storage.js"></script>
-<script src="loadmode.js"></script> <!-- IS THIS NECESSARY? IS IT LOADED AT START? -->
 <script src="createEditor.js"></script>
 <script src="serverCommunication.js"></script>
 <script src="user-interface.js"></script>

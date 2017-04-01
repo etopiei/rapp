@@ -285,9 +285,7 @@ function submitChatText(){
 		return;
 	}
 
-	//this is temporary to display chat message locally, eventually they will be just sent to the server
-
-	displayMessage(message);
+	sendMessage(message);
 
 	//clear chat box
 	chatBox.value = "";
