@@ -250,10 +250,26 @@ function setOriginalTheme(){
 
 function changeTheme() {
 	let index = themeSelector.selectedIndex;
-	let themeFile = themes[index].name;
-	themeStorage(themeFile);
-	loadTheme(themeFile);
+	let theme = themes[index].name;
+	themeStorage(theme);
+	loadTheme(theme);
 	editor.setOption("theme", themes[index].name); 
+	window.setTimeout(() => {
+		let elem = document.querySelectorAll('.cm-s-' + theme + '.CodeMirror')[0];
+		let elements = document.getElementsByClassName('theme-copy');
+		let bg = window.getComputedStyle(elem)["background-color"];
+		let color = window.getComputedStyle(elem).color;
+		for (let i = 0; i < elements.length; i++) {
+			elements[i].style.background = bg;
+			elements[i].style.color = color;
+		}
+		let elements2 = document.getElementsByClassName('theme-copy-reverse');
+		console.log(elements2[0].style.color);
+		for (let i = 0; i < elements2.length; i++) {
+			elements2[i].style.color = bg;
+			elements2[i].style.background = color;
+		}
+	}, 050);
 }
 
 function loadTheme(theme) { //THEME PARAMETER SHOULD BE OF FORM: "name"
