@@ -63,7 +63,10 @@ var modes = [
 	"asn.1",
 	"asterisk",
 	"brainfuck",
-	"clike",
+	"C",
+	"C#",
+	"C++",
+	"Ceylon",
 	"clojure",
 	"cmake",
 	"cobol",
@@ -103,6 +106,7 @@ var modes = [
 	"http",
 	"idl",
 	"index.html",
+	"Java",
 	"javascript",
 	"jinja2",
 	"jsx",
@@ -121,6 +125,7 @@ var modes = [
 	"nginx",
 	"nsis",
 	"ntriples",
+	"Objective-C",
 	"octave",
 	"oz",
 	"pascal",
@@ -142,6 +147,7 @@ var modes = [
 	"rust",
 	"sas",
 	"sass",
+	"Scala",
 	"scheme",
 	"shell",
 	"sieve",
@@ -153,6 +159,7 @@ var modes = [
 	"sparql",
 	"spreadsheet",
 	"sql",
+	"Squirrel",
 	"stex",
 	"stylus",
 	"swift",
@@ -181,6 +188,17 @@ var modes = [
 	"yaml-frontmatter",
 	"z80"
 ];
+
+c_like = {
+	"C": "text/x-csrc",
+	"C++": "text/x-c++src",
+	"Java": "text/x-java",
+	"C#": "text/x-csharp",
+	"Objective-C": "text/objectivec",
+	"Scala": "text/x-scala",
+	"Squirrel": "text/x-squirrel",
+	"Ceylon": "text/x-ceylon"
+};
 
 for (i in modes) {
 	let option = document.createElement("option");
@@ -253,15 +271,28 @@ function changeKeyMap() {
 }
 	
 modeInput.selectedIndex = 0;
-function changeLanguage() {
-	let mode = modeInput.options[modeInput.selectedIndex].value;
-	console.log(mode);
+
+function onChangeLanguage(mode) {
+	let lang = mode;
+	if (typeof c_like[mode] === "string") {
+		lang = c_like[mode];
+		mode = "clike"
+	}
+	console.log(lang);
 	CodeMirror.requireMode(mode, ()=> {
-		editor.setOption("mode", mode); 
+		editor.setOption("mode", lang); 
 	});
 
 	languageStorage(mode);
 
+}
+
+function changeLanguage() {
+	let mode = modeInput.options[modeInput.selectedIndex].value;
+	onChangeLanguage(mode);
+	if (typeof socket === "object") {
+		socket.changeLanguage(mode);
+	}
 }
 
 document.getElementById('chat-text').onkeypress = function(e) {

@@ -108,6 +108,10 @@ func sendToPairChannel(u *userInfo) error {
 	return nil
 }
 
+func write(w http.ResponseWriter, req *http.Request) {
+	fmt.Println("h")
+	http.ServeFile(w, req, "")
+}
 
 func onConnect(w http.ResponseWriter, req *http.Request) {
 	var c, err = upgrader.Upgrade(w, req, nil)
@@ -225,5 +229,6 @@ func main() {
 
 	fmt.Println("starting server")
 	http.HandleFunc("/pair", onConnect)
+	http.HandleFunc("/", write)
 	http.ListenAndServe(":8000", nil)
 }

@@ -80,6 +80,12 @@ function handleMessage(message) {
 			addChange(msgObject.changeObj);
 		}
 		break;
+
+	case "changeLanguage":
+		if (typeof msgObject.langueage == "string") {
+			onChangeLanguage(msgObject.language);
+		}
+		break;
 	}
 }
 
@@ -129,5 +135,16 @@ function fileStorage(textContent) {
 	alert("Haha, you don't support Web Storage. Get a modern browser")
 
     }
+}
 
+//socket.changeLanguage(mode : string - the language to change to)
+socket.changeLanguage = function(mode) {
+	if (!mode) {
+		return;
+	}
+	let msg = {
+		messageType: "changeLanguage",
+		language: mode
+	};
+	socket.send(JSON.stringify(msg));
 }
