@@ -1,11 +1,31 @@
 var myTextArea = document.getElementById('code');
 var editor = CodeMirror.fromTextArea(myTextArea, {
 		lineNumbers: true,
-		mode: "javascript"
+		mode: "javascript",
+		indentWithTabs: true,
+		smartIndent: false
 	});
 
 var modeInput = document.getElementById("mode");
 CodeMirror.modeURL = "codemirror-5.24.2/mode/%N/%N.js";
+
+document.getElementById('chat-display').changeTheme=function(fg, bg) {
+	this.style.borderLeft = '1px solid ' + fg;
+}
+
+document.getElementById('toolbar').changeTheme=function(fg, bg) {
+	this.style.borderBottom = '1px solid ' + fg;
+}
+
+document.getElementById('chat-text').changeTheme=function(fg, bg) {
+	this.style.border = 'none';
+	this.style.borderLeft = '1px solid ' + fg;
+	this.style.borderTop = '1px solid ' + fg;
+}
+
+document.getElementById('chat-heading').changeTheme=function(fg, bg) {
+	this.style.borderBottom = '1px solid ' + fg;
+}
 
 var themes = [
 	{name: "3024-day", loaded: false},
@@ -262,8 +282,16 @@ function changeTheme() {
 		for (let i = 0; i < elements.length; i++) {
 			elements[i].style.background = bg;
 			elements[i].style.color = color;
+			console.log(elements[i].id);
+			console.log(elements[i].changeTheme);
+			if (elements[i].changeTheme) {
+				elements[i].changeTheme(color, bg);
+			}
 		}
 		let elements2 = document.getElementsByClassName('theme-copy-reverse');
+		if (elements2.length < 1) {
+			return;
+		}
 		console.log(elements2[0].style.color);
 		for (let i = 0; i < elements2.length; i++) {
 			elements2[i].style.color = bg;
@@ -289,6 +317,7 @@ function changeKeyMap() {
 modeInput.selectedIndex = 0;
 
 function onChangeLanguage(mode) {
+	languageStorage(mode);
 	let lang = mode;
 	if (typeof c_like[mode] === "string") {
 		lang = c_like[mode];
@@ -298,9 +327,6 @@ function onChangeLanguage(mode) {
 	CodeMirror.requireMode(mode, ()=> {
 		editor.setOption("mode", lang); 
 	});
-
-	languageStorage(mode);
-
 }
 
 function changeLanguage() {

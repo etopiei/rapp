@@ -3,6 +3,10 @@
     src: url(kayak-sans-light.otf);
 }
 
+body {
+	font-family: kayak;
+}
+
 * {
    /*  border: 2px solid; */
     margin: 0px;

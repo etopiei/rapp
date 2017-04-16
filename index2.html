@@ -15,25 +15,25 @@
     <body>
 
 	    <div id="background-dimmer" onclick="hidePopups()"></div>
-	<div id="start-pair-popup">
+	<div id="start-pair-popup" class="theme-copy">
 		<p>Your id is <span class="variable" id="user-id"></span></p>
 		<input type="text" placeholder="Partner's ID" id="partner-id-input" />
-		<span class="button" onclick="sendPairRequest()">Connect</span>
+		<span class="button theme-copy-reverse" onclick="sendPairRequest()">Connect</span>
 
 	</div>
 
         <div id="content">
 
-             <div class="header theme-copy">
+             <div class="header theme-copy-reverse">
 
-                <h1 id="header-title" class="theme-copy">rapp</h1>
+                <h1 id="header-title" class="theme-copy-reverse">rapp</h1>
 
             </div>
 
 	    <div id="bottom"> 
                 <div class="left-side">
 
-                    <div id="toolbar">
+                    <div id="toolbar" class="theme-copy">
 
                         <div id="code-choice">
 		                    <p>
@@ -54,7 +54,7 @@
                                     <option value="emacs">Emacs</option>
                                     <option value="sublime">Sublime</option>
                                 </select>
-				<span class="button" onclick="displayPairPopup()">
+				<span class="button theme-copy-reverse" onclick="displayPairPopup()">
 					Start Pairing
 				</span>
 				
@@ -72,20 +72,20 @@
 
                 <div class="right-side">
 
-                    <div id="chat-heading">
+                    <div id="chat-heading" class="theme-copy">
 
                         <p id="chat-title-text"> Chat </p>
 
                     </div>
 
-                    <div id="chat-display">
+		    <div id="chat-display" class="theme-copy"> 
                             <div id="chat-messages">
                                 <div class="wordwrap" id="messages-display"> </div>
                             </div>
                     </div>
 
                     <div id="message-field">
-                        <input type="text" name="message" id="chat-text" placeholder="Enter Message">
+                        <input class="theme-copy" type="text" name="message" id="chat-text" placeholder="Enter Message">
                     </div>
 
                 </div>
