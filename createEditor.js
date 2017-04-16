@@ -1,7 +1,9 @@
 var myTextArea = document.getElementById('code');
 var editor = CodeMirror.fromTextArea(myTextArea, {
 		lineNumbers: true,
-		mode: "javascript"
+		mode: "javascript",
+		indentUnit: 4,
+		indentWithTabs: true
 	});
 
 var modeInput = document.getElementById("mode");
@@ -282,13 +284,11 @@ function onChangeLanguage(mode) {
 	CodeMirror.requireMode(mode, ()=> {
 		editor.setOption("mode", lang); 
 	});
-
-	languageStorage(mode);
-
 }
 
 function changeLanguage() {
 	let mode = modeInput.options[modeInput.selectedIndex].value;
+	languageStorage(mode);
 	onChangeLanguage(mode);
 	if (typeof socket === "object") {
 		socket.changeLanguage(mode);

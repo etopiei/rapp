@@ -109,8 +109,14 @@ func sendToPairChannel(u *userInfo) error {
 }
 
 func write(w http.ResponseWriter, req *http.Request) {
-	fmt.Println("h")
-	http.ServeFile(w, req, "")
+	if req.RequestURI[0] == '/' {
+		req.RequestURI = req.RequestURI[1:] 
+	}
+	if len(req.RequestURI) == 0 {
+		http.ServeFile(w, req, "index2.html")
+		return
+	}
+	http.ServeFile(w, req, req.RequestURI)
 }
 
 func onConnect(w http.ResponseWriter, req *http.Request) {
@@ -230,5 +236,5 @@ func main() {
 	fmt.Println("starting server")
 	http.HandleFunc("/pair", onConnect)
 	http.HandleFunc("/", write)
-	http.ListenAndServe(":8000", nil)
+	http.ListenAndServeTLS(":8000", "cert.pem", "key.pem", nil)
 }

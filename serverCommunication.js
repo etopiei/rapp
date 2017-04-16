@@ -1,4 +1,4 @@
-var socket = new WebSocket("ws://127.0.0.1:8000/pair");
+var socket = new WebSocket("wss://127.0.0.1:8000/pair");
 
 socket.onopen = () => {console.log("You're now connected.");}
 socket.onmessage = (message) => {handleMessage(message)}
@@ -54,8 +54,17 @@ function onPairStart(msgObject) {
 	}
 }
 
+var offerOptions = {
+	offerToReceiveAudio: 1,
+	offerToReceiveVideo: 0,
+	voiceActivityDetection: false
+};
+
+var pc = null;
+
 function handleMessage(message) {
 	let msgObject = JSON.parse(message.data);
+	console.log(msgObject);
 	switch (msgObject.messageType) {
 	case "id":
 		userId = msgObject.id;
@@ -85,6 +94,22 @@ function handleMessage(message) {
 		if (typeof msgObject.langueage == "string") {
 			onChangeLanguage(msgObject.language);
 		}
+		break;
+
+	case "icecandidate":
+		if (!pc) {
+			pc = new RTCPeerConnection();
+		}
+		if (msgObject.icecandidate)
+			pc.addIceCandidate(new RTCIceCandidate(msgObject.icecandidate));
+		break;
+	
+	case "startCall":
+		handleCall(msgObject);
+		break;
+
+	default:
+		console.log(msgObject);
 		break;
 	}
 }
@@ -120,22 +145,103 @@ editor.on("change", (instance, changeObj) => {
 function fileStorage(textContent) {
 
     //SET FILE CONTENTS IN STORAGE FOR LATER OR IF DISCONNECT
-
-     if (typeof(Storage) !== "undefined") {
-    
-        //store the theme in the local browser storage
-
-        localStorage.setItem("code", textContent);
-
-
-    } else {
-
-        // No Web Storage support - too bad for user
-	// TODO: take this alert out. It's here just to see if anyone notices it.
-	alert("Haha, you don't support Web Storage. Get a modern browser")
-
-    }
 }
+
+function handleCall(msgObject) {
+	console.log("I got called.")
+	if (!pc)
+		pc = new RTCPeerConnection();
+	pc.setRemoteDescription(new RTCSessionDescription(msgObject.desc));
+	startCall(false);
+}
+
+function hangup() {
+	document.getElementById('call-button').style.display = 'inline';
+	document.getElementById('hang-up-button').style.display = 'none';
+	if (pc) {
+		pc.removeStream(stream);
+		pc.close();
+		pc = null;
+	}
+
+	if (stream) {
+		console.log(stream.getTracks())
+		stream.getTracks().forEach(track => {
+			stream.removeTrack(track);
+			track.stop();
+		});
+		stream = null;
+	}
+}
+
+function startCall(myCall) {
+	if (myCall) {
+		pc = new RTCPeerConnection();
+	}
+
+	document.getElementById('call-button').style.display = 'none';
+	document.getElementById('hang-up-button').style.display = 'inline';
+
+	if (pc.remoteDescription.type === "answer")
+		return
+
+	pc.onicecandidate = e => {
+		console.log("onicecandidate")
+		let msg = {
+			messageType: "icecandidate",
+			icecandidate: e.candidate
+		}
+		socket.send(JSON.stringify(msg))
+	};
+
+	pc.onclose = e => {
+		console.log("close")
+	}
+
+	pc.ontrack = e => {
+		console.log("onaddstream")
+		let sound = document.getElementById('sound');
+		sound.srcObject = e.streams[0];
+	};
+
+	pc.onremovestream = stream => {hangup();};
+
+	pc.onaddstream = e => {
+		console.log("onaddstream")
+		let sound = document.getElementById('sound');
+		sound.srcObject = e.stream;
+	};
+
+	mediaPromise = navigator.mediaDevices.getUserMedia({
+		audio: true,
+		video: false
+	});
+
+	mediaPromise.then(stream => {
+		console.log("mediaPromise")
+		window.stream = stream;
+		pc.addStream(stream);
+		if (myCall) {
+			console.log("myCall")
+			pc.createOffer(offerOptions).then(onDescription);
+		} else {
+			console.log("not myCall")
+			if (pc.remoteDescription.type === "offer")
+				pc.createAnswer().then(onDescription);
+		}
+	});
+}
+
+function onDescription(desc) {
+	console.log("onDescription")
+	pc.setLocalDescription(desc);
+	let msg = {
+		messageType: "startCall",
+		desc: desc
+	};
+	socket.send(JSON.stringify(msg));
+}
+
 
 //socket.changeLanguage(mode : string - the language to change to)
 socket.changeLanguage = function(mode) {

@@ -86,6 +86,17 @@
 
                     <div id="message-field">
                         <input type="text" name="message" id="chat-text" placeholder="Enter Message">
+			<span id="call-button" class="button" onclick="startCall(true)">
+				<div>
+					&#9743
+				</div>
+			</span>
+			<span id="hang-up-button" class="button" onclick="hangup()" style="display:none;background: red">
+				<div>
+					&#9743
+				</div>
+			</span>
+			<audio id="sound" autoplay></audio>
                     </div>
 
                 </div>
