@@ -1,82 +1,106 @@
 <html>
 
-<head>
+    <head>
 
-<title>rapp</title>
+        <title>rapp</title>
 
-<link rel="Stylesheet" href="main.css" type="text/css" media=screen>
-<link rel="stylesheet" href="codemirror-5.24.2/lib/codemirror.css">
-<script src="codemirror-5.24.2/lib/codemirror.js"></script>
-<script src="codemirror-5.24.2/addon/mode/loadmode.js"></script>
+        <link rel="Stylesheet" href="main.css" type="text/css" media=screen>
+        <link rel="stylesheet" href="codemirror-5.24.2/lib/codemirror.css">
+        <link rel="shortcut icon" type="image/png" href="favicon.ico">
+        <script src="codemirror-5.24.2/lib/codemirror.js"></script>
+        <script src="codemirror-5.24.2/addon/mode/loadmode.js"></script>
 
-</head>
+    </head>
 
-<body>
+    <body>
 
-<div class="toolbar shadow">
+	    <div id="background-dimmer" onclick="hidePopups()"></div>
+	<div id="start-pair-popup" class="theme-copy">
+		rapp (Remote Agile Pair Programming) is a tool for developers to pair program over the internet. To start, enter your partner's ID.
+		<p>Your id is <span class="variable" id="user-id"></span></p>
+		<input type="text" placeholder="Partner's ID" id="partner-id-input" />
+		<span class="button theme-copy-reverse" onclick="sendPairRequest()">Connect</span>
 
-	<center>
-	<h1 class="title">rapp</h1>
-	</center>
+	</div>
 
-</div>
+        <div id="content">
 
-<div class="content">
+             <div class="header theme-copy-reverse">
 
-<div id="tools">
-		<!-- Have a dropdown box to select langauge with id mode. -->
+                <h1 id="header-title" class="theme-copy-reverse">rapp</h1>
 
-	<span class="codeChoice">
-		<p>
-			Select Language:
-			<select id="mode" onchange="changeLanguage()">
-				<option value="python">Python</option>
-				<option value="php">PHP</option>
-				<option value="javascript">Javascript</option>
-				<option value="css">CSS</option>
-				<option value="htmlmixed">HTML</option>
-			</select>
+            </div>
 
-			Select theme:
-			<select id="themeSelector" onchange="changeTheme()">
+	    <div id="bottom"> 
+                <div class="left-side">
 
-			</select>
-		</p>
-	</span>
+                    <div id="toolbar" class="theme-copy">
 
-</div>
+                        <div id="code-choice">
+		                    <p>
+			                Select Language:
+                                <select id="mode" onchange="changeLanguage()">
 
-<div class="chat">
+                                <select>
 
-<!-- This container should house the editor for the programming partner - also use tinymce for this -->
-<center>
-<p> Chat </p>
-</center>
+                                Select theme:
+                                <select id="themeSelector" onchange="changeTheme()">
 
-<div id="message-container">
-	<div class="wordwrap" id="messages-display"></div>
-</div>
+                                </select>
 
-<input type="text" name="message" id="chat-text" class="chat-text" placeholder="Enter Message">
-<a class="submit-button-overlay" onclick="submitChatText()"></a>
+				Select keymap:
+                                <select id="keymap-selector" onchange="changeKeyMap()">
+                                    <option value="default">Default</option>
+                                    <option value="vim">ViM</option>
+                                    <option value="emacs">Emacs</option>
+                                    <option value="sublime">Sublime</option>
+                                </select>
+				<span class="button theme-copy-reverse" onclick="displayPairPopup()">
+					Start Pairing
+				</span>
+				
+                            </p>
+                        </div>
+                    </div>
 
-</div>
+                    <div id="text-area">
 
-<div class="editor">
+                        <textarea id="code" name="codeArea" value=""></textarea>
 
-<!-- This container should house the editor for the driver - use tinymce for this -->
+                    </div>
 
-<textarea id="code" name="codeArea" value=""></textarea>
+                </div>
 
-</div>
+                <div class="right-side">
 
-</div>
+                    <div id="chat-heading" class="theme-copy">
 
-</body>
+                        <p id="chat-title-text"> Chat </p>
+
+                    </div>
+
+		    <div id="chat-display" class="theme-copy"> 
+                            <div id="chat-messages">
+                                <div class="wordwrap" id="messages-display"> </div>
+                            </div>
+                    </div>
+
+                    <div id="message-field">
+                        <input class="theme-copy" type="text" name="message" id="chat-text" placeholder="Enter Message">
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </body>
 
 <script src="storage.js"></script>
-<script src="loadmode.js"></script> <!-- IS THIS NECESSARY? IS IT LOADED AT START? -->
 <script src="createEditor.js"></script>
 <script src="serverCommunication.js"></script>
+<script src="user-interface.js"></script>
+<script src="codemirror-5.24.2/keymap/emacs.js"></script>
+<script src="codemirror-5.24.2/keymap/sublime.js"></script>
+<script src="codemirror-5.24.2/keymap/vim.js"></script>
 
 </html>

@@ -15,6 +15,8 @@ partnerIdInput.onkeypress = e => {
 }
 
 function sendPairRequest() {
+	popup.style.display = 'none';
+	dimmer.style.display = 'none';
 	let id = partnerIdInput.value;
 
 	//a little easter egg
