@@ -126,7 +126,7 @@ func onConnect(w http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-	var id = 0
+	var id = rand.Int()
 	var user *userInfo
 	for users[id] != nil {
 		id = rand.Int()

@@ -328,14 +328,12 @@ function displayMessage(messageText, username) {
 		username = "Guest"
 	}
 
-	if (document.getElementById('messages-display').innerHTML == "") {
-		textToDisplay = username + ": " + messageText;
-	}
-	else {
-		textToDisplay = username + ": " + messageText + "<br>";
-	}
+	textToDisplay = username + ": " + messageText;
 
-	document.getElementById('messages-display').innerHTML+= textToDisplay;
+	let p = document.createElement('p');
+	p.innerText = textToDisplay;
+
+	document.getElementById('messages-display').appendChild(p);
 
 }
 
