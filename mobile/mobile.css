@@ -4,7 +4,6 @@
 }
 
 .toolbar {
-    
     background-color: #21633E;
     position: fixed;
     top: 0;
@@ -35,7 +34,7 @@
 
 .content {
     width: 100%;
-	margin-top: 20%;
+	margin-top: 30%;
 }
 
 .image-choice {

@@ -1,0 +1,83 @@
+@font-face {
+    font-family: kayak;
+    src: url(../kayak-sans-light.otf);
+}
+
+body {
+  /* background-color: #6793BA; */
+  background-color: floralwhite;
+  animation-duration: 0.001s;
+  font-family: kayak;
+}
+
+  .header {
+    background-color: #21633E;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 999;
+    width: 100%;
+    height: 15%;
+    display: table;
+  }
+
+  .nav-item:hover {
+    background-color: white;
+  }
+
+  .nav-item {
+      font-size: 40px;
+  }
+
+  #nav-item2 {
+    display: none;
+  }
+
+  #nav-item3 {
+    display: none;
+  }
+
+  #nav-item4 {
+    display: none;
+  }
+
+  #nav-item1 {
+    color: #F5F5F8;
+    font-size: 50px;
+    font-family: kayak;
+    height: 40px;
+    padding: 20px;
+    display: inline-block;
+    margin-left: 80px;
+    margin-top: 8%;
+  }
+
+  .collapse {
+    float: right;
+    width: 60px;
+    height: 60px;
+    margin-right: 20px;
+    margin-top: 10%;
+  }
+
+  a {
+    text-decoration: none;
+  }
+
+  .wrapper {
+    margin-top: 25%;
+    padding: 40px;
+  }
+
+  .shadow {
+     -moz-box-shadow: 0 0 30px 5px #999;
+     -webkit-box-shadow: 0 0 30px 5px #999;
+  }
+
+.anchor:before {
+    display: block; 
+    content: " "; 
+    margin-top: -135px; 
+    height: 135px; 
+    visibility: hidden; 
+  }
