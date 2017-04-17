@@ -226,3 +226,10 @@
 	opacity: 0.5;
 	background: grey;
 }
+
+#call-button {
+    margin-top: 10px;
+    height: 10px;
+    width: 90%;
+    text-align: center;
+}
