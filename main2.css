@@ -187,3 +187,42 @@
 #start-pair-popup input {
 	font-size: 1em;
 }
+
+.inline-marker {
+	opacity: 0.5;
+	position: relative;
+	left: 0;
+	top: 0;
+}
+
+.inline-marker:hover input {
+	display: inline-block;
+}
+
+.inline-marker:hover {
+	opacity: 1;
+}
+
+.inline-marker:hover div {
+	opacity: 0;
+}
+
+.inline-marker input {
+	display: none;
+	position: absolute;
+	top: 0;
+}
+
+.inline-marker div {
+	display: inline-block;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 15px;
+	height: 15px;
+	transform: translateX(-50%);
+	border-radius: 25px;
+	z-index: 2;
+	opacity: 0.5;
+	background: grey;
+}

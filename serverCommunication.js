@@ -49,9 +49,107 @@ function onPairStart(msgObject) {
 			//cancel changes made by the observer
 			if (changeObj.from.src !== 'outside') {
 				changeObj.cancel()
+				let addWidget = false;
+				for (let i = 0; i < changeObj.text.length; i++) {
+					let char = changeObj.text[i];
+					if (char.length > 0) {
+						addWidget = true;
+						break;
+					}
+				}
+				if (addWidget && allowNewWidget)
+					makeComment(changeObj);
 			}
 		});
 	}
+}
+
+var bookmarks = [];
+
+var allowNewWidget = true;
+
+function makeComment(changeObj) {
+	let widget = document.createElement('span');
+	widget.className = 'inline-marker';
+	widget.innerText = '';
+	widget.style.opacity = 1;
+
+	let hitBox = document.createElement('div');
+	hitBox.className = 'theme-copy-reverse';
+	widget.appendChild(hitBox);
+
+	let input = document.createElement('input');
+	input.className = 'theme-copy';
+	input.style.display = 'inline-block';
+	input.value = changeObj.text[0];
+
+	allowNewWidget = false;
+
+	widget.appendChild(input);
+	let position = changeObj.from;
+	let options = {
+		widget: widget
+	}
+
+	let bm = editor.setBookmark(position, options);
+	setTimeout(() => {
+		input.focus()
+	}, 1);
+	bookmarks.push(bm);
+
+	widget.onclick = e => {
+		allowNewWidget = true;
+		bookmarks.splice(bookmarks.indexOf(bm), 1);
+		bm.clear();
+	}
+
+	input.onkeypress = e => {
+		if (e.keyCode == 13) {
+			widget.style = null;
+			input.style = null;
+			editor.focus();
+			allowNewWidget = true;
+			sendBookmark(bm, input.value);
+		}
+	}
+}
+
+function addBookmark(pos, text) {
+	let widget = document.createElement('span');
+	widget.className = 'inline-marker';
+	widget.innerText = '';
+
+	let hitBox = document.createElement('div');
+	hitBox.className = 'theme-copy-reverse';
+	widget.appendChild(hitBox);
+
+	let input = document.createElement('input');
+	input.className = 'theme-copy';
+	input.value = text;
+	widget.appendChild(input);
+
+	let options = {
+		widget: widget
+	}
+
+	let bm = editor.setBookmark(pos, options);
+	bookmarks.push(bm);
+
+	widget.onclick = e => {
+		bookmarks.splice(bookmarks.indexOf(bm), 1);
+		bm.clear();
+	}
+}
+	
+
+function sendBookmark(bm, text) {
+	let pos = bm.find();
+	let msg = {
+		messageType: "addMarker",
+		position: pos,
+		text: text
+	}
+	socket.send(JSON.stringify(msg));
 }
 
 var offerOptions = {
@@ -108,6 +206,14 @@ function handleMessage(message) {
 		handleCall(msgObject);
 		break;
 
+	case "hangup":
+		hangup(true);
+		break;
+	
+	case "addMarker":
+		addBookmark(msgObject.position, msgObject.text);
+		break;
+
 	default:
 		console.log(msgObject);
 		break;
@@ -155,9 +261,20 @@ function handleCall(msgObject) {
 	startCall(false);
 }
 
-function hangup() {
+//response : bool, if true, says that this is a response to the other person
+//                 hanging up. Hence, do not send the hangup message.
+function hangup(response) {
 	document.getElementById('call-button').style.display = 'inline';
 	document.getElementById('hang-up-button').style.display = 'none';
+
+	if (!response) {
+		let msg = {
+			messageType: "hangup"
+		}
+
+		socket.send(JSON.stringify(msg));
+	}
+
 	if (pc) {
 		pc.removeStream(stream);
 		pc.close();
