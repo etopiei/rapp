@@ -333,8 +333,10 @@ function displayMessage(messageText, username) {
 	let p = document.createElement('p');
 	p.innerText = textToDisplay;
 
-	document.getElementById('messages-display').appendChild(p);
-
+	let display = document.getElementById('messages-display');
+	display.appendChild(p);
+	let par = display.parentElement;
+	par.scrollTop = par.scrollHeight - par.offsetHeight;
 }
 
 setOriginalTheme();
