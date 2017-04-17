@@ -227,7 +227,7 @@
 	background: grey;
 }
 
-#call-button {
+#call-button, #hang-up-button {
     margin-top: 10px;
     height: 10px;
     width: 90%;
