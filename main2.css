@@ -187,3 +187,10 @@
 #start-pair-popup input {
 	font-size: 1em;
 }
+
+#call-button {
+    margin-top: 10px;
+    height: 10px;
+    width: 90%;
+    text-align: center;
+}
