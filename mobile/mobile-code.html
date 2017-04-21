@@ -1,22 +1,45 @@
 <html>
 <head>
 <link rel=StyleSheet href="mobile-code.css" type="text/css" media=screen>
+<link rel="stylesheet" href="../codemirror-5.24.2/lib/codemirror.css">
+<link rel="shortcut icon" type="image/png" href="../favicon.ico">
+<script src="../codemirror-5.24.2/lib/codemirror.js"></script>
+<script src="../codemirror-5.24.2/addon/mode/loadmode.js"></script>
 <title> rapp </title>
 </head>
 <body>
-  <center>
     <div class="header shadow">
+        <center>
       <a href="#"><div class="nav-item selected" id="nav-item1">rapp</div></a>
       <a onclick="createDropDown()" id="burger"><img class="collapse" src="../images/burger.png" id="collapse"></img></a>
-      <a href="#scrollAbout" onclick="removeDropDown()"><div class="nav-item" id="nav-item2">Change Theme</div></a>
-      <a href="#scrollProjects" onclick="removeDropDown()"><div class="nav-item" id="nav-item3">Change Language</div></a>
-      <a href="../mobile/mobile-chat.html" onclick="removeDropDown()"><div class="nav-item" id="nav-item4">Switch to Chat</div></a>
+      <a href="#scrollAbout" onclick="removeDropDown(1)"><div class="nav-item" id="nav-item2">Change Theme</div></a>
+        <div id="code-choice" style="display:none">
+            <p> Select Language: <select id="mode" onchange="changeLanguage()"><select>
+                Select theme: <select id="themeSelector" onchange="changeTheme()"> </select>
+                Select keymap: <select id="keymap-selector" onchange="changeKeyMap()">
+                                    <option value="default">Default</option>
+                                    <option value="vim">ViM</option>
+                                    <option value="emacs">Emacs</option>
+                                    <option value="sublime">Sublime</option>
+                                </select>
+				<span class="button" onclick="displayPairPopup()">
+					Start Pairing
+				</span>
+				
+            </p>
+        </div>
+        <a href="#scrollProjects" onclick="removeDropDown(2)"><div class="nav-item" id="nav-item3">Change Language</div></a>
+        <a href="../mobile/mobile-chat.html" onclick="removeDropDown()"><div class="nav-item" id="nav-item4">Switch to Chat</div></a>
+        </center>
     </div>
-  </center>
     <div class="wrapper">
-        <p> Code here </p>
+        <div id="text-area">
+            <textarea id="code" name="codeArea" value=""></textarea>
+        </div>
     </div>
+</body>
 <script src="drop.js"></script>
+<script src="../storage.js"></script>
 <script src="../loadmode.js"></script>
 <script src="../createEditor.js"></script>
 

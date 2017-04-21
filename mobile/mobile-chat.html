@@ -4,6 +4,13 @@
 <title> rapp </title>
 </head>
 <body>
+  <div id="background-dimmer" onclick="hidePopups()"></div>
+	<div id="start-pair-popup">
+		<p>Your id is <span class="variable" id="user-id"></span></p>
+		<input type="text" placeholder="Partner's ID" id="partner-id-input" />
+		<span class="button" onclick="sendPairRequest()">Connect</span>
+
+	</div>
   <center>
     <div class="header shadow">
       <a href="#"><div class="nav-item selected" id="nav-item1">rapp</div></a>
@@ -12,10 +19,42 @@
     </div>
   </center>
     <div class="wrapper">
-        <p> Chat here </p>
+        <div id="chat-display">
+                        <div id="button-area">
+                            <span id="pair-button" class="pair-button" onclick="displayPairPopup()" style="display:none;">
+					            Start Pairing
+				            </span>
+                        <span id="call-button" class="side-button" onclick="startCall(true)">
+				            <div>
+					            Call &#9743
+				            </div>
+			            </span>
+			            <span id="hang-up-button" class="side-button" onclick="hangup()" style="display:none;background: red">
+				            <div>
+					            Hangup &#9743
+				            </div>
+			            </span>
+                        <span id="switch-button" class="side-button" onclick="switchRoles()">
+				            <div>
+					          Switch
+				         </div>
+			            </span>
+                        </div>
+                            <div id="chat-messages">
+                                <div class="wordwrap" id="messages-display"> </div>
+                            </div>
+                    </div>
+
+                    <div id="message-field">
+                        <input type="text" name="message" id="chat-text" placeholder="Enter Message">
+			<audio id="sound" autoplay></audio>
+                    </div>
     </div>
-<script src="drop2.js"></script>
-<script src="../loadmode.js"></script>
+    
 <script src="../createEditor.js"></script>
+<script src="../serverCommunication.js"></script>
+<script src="drop2.js"></script>
+<script src="../user-interface.js"></script>
+<script src="../loadmode.js"></script>
 
 </html>

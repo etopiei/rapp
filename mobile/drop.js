@@ -53,7 +53,14 @@ function createDropDown() {
 
 }
 
-function removeDropDown() {
+function removeDropDown(action) {
+
+    if (action == 1) {
+        //change theme
+    }
+    if (action == 2) {
+        //change language
+    }
 
 	burger = document.getElementById('collapse');
 
@@ -73,7 +80,7 @@ function removeDropDown() {
 		y.style.display = 'none';
 		z.style.display = 'none';
 
-		v.style.marginLeft = '112px';
+		//v.style.marginLeft = '112px';
 
 	}
 
