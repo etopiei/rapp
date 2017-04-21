@@ -227,9 +227,49 @@
 	background: grey;
 }
 
-#call-button, #hang-up-button {
-    margin-top: 1%;
-    height: 1%;
+.pair-button {
+    display: inline-block;
+	background: rgba(33, 99, 62, 0.5);
+	padding: 5px;
+	border-radius: 5px;
+	color: white;
     width: 90%;
+    margin: 5px;
     text-align: center;
+}
+
+.pair-button:hover {
+	background: rgba(33, 99, 62, 0.8);
+	cursor: pointer;
+}
+
+.pair-button:active {
+	background: rgba(33, 99, 62, 1);
+}
+
+.side-button {
+    display: table-cell;
+	background: rgba(33, 99, 62, 0.5);
+	padding: 5px;
+	border-radius: 5px;
+	color: white;
+    text-align: center;
+}
+
+.side-button:hover {
+	background: rgba(33, 99, 62, 0.8);
+	cursor: pointer;
+}
+
+.side-button:active {
+	background: rgba(33, 99, 62, 1);
+}
+
+#button-area {
+    vertical-align: center;
+    display: table;
+    margin-top: 5px;
+    margin-left: 2px;
+    width: 100%;
+    height: 10px;
 }

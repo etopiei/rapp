@@ -33,6 +33,13 @@ function sendPairRequest() {
 function onPairStart(msgObject) {
 	//This ensures that the loop on the server
 	//for when the user isn't paired is broken
+
+	//set the pair button to go away and show the call and switch buttons.
+
+	document.getElementById('pair-button').display = 'none';
+	document.getElementById('call-button').display = '';
+	document.getElementById('switch-button').display = '';
+
 	socket.send("{}");
 	if (msgObject.role === 'driver') {
 		editor.on("change", (instance, changeObj) => {
@@ -264,7 +271,7 @@ function handleCall(msgObject) {
 //response : bool, if true, says that this is a response to the other person
 //                 hanging up. Hence, do not send the hangup message.
 function hangup(response) {
-	document.getElementById('call-button').style.display = 'inline-block';
+	document.getElementById('call-button').style.display = 'table-cell';
 	document.getElementById('hang-up-button').style.display = 'none';
 
 	if (!response) {
@@ -297,7 +304,7 @@ function startCall(myCall) {
 	}
 
 	document.getElementById('call-button').style.display = 'none';
-	document.getElementById('hang-up-button').style.display = 'inline-block';
+	document.getElementById('hang-up-button').style.display = 'table-cell';
 
 	if (pc.remoteDescription.type === "answer")
 		return

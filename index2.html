@@ -54,9 +54,6 @@
                                     <option value="emacs">Emacs</option>
                                     <option value="sublime">Sublime</option>
                                 </select>
-				<span class="button" onclick="displayPairPopup()">
-					Start Pairing
-				</span>
                 <span class="button" onclick="saveTextAsFile()">
                     Save
                 </span>
@@ -81,17 +78,26 @@
                     </div>
 
                     <div id="chat-display">
-
-                    <span id="call-button" class="button" onclick="startCall(true)">
-				        <div>
-					        Audio Call Partner &#9743
-				        </div>
-			        </span>
-			        <span id="hang-up-button" class="button" onclick="hangup()" style="display:none;background: red">
-				        <div>
-					        Hangup &#9743
-				        </div>
-			        </span>
+                        <div id="button-area">
+                            <span id="pair-button" class="pair-button" onclick="displayPairPopup()">
+					            Start Pairing
+				            </span>
+                        <span id="call-button" class="side-button" onclick="startCall(true)" style="display:none;">
+				            <div>
+					            Call &#9743
+				            </div>
+			            </span>
+			            <span id="hang-up-button" class="side-button" onclick="hangup()" style="display:none;background: red">
+				            <div>
+					            Hangup &#9743
+				            </div>
+			            </span>
+                        <span id="switch-button" class="side-button" onclick="switch()" style="display:none;">
+				            <div>
+					          Switch
+				         </div>
+			            </span>
+                        </div>
                             <div id="chat-messages">
                                 <div class="wordwrap" id="messages-display"> </div>
                             </div>
