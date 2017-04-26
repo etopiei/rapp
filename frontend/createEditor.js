@@ -384,6 +384,43 @@ function closeOptions() {
 	document.getElementById('toolbar').style.display = 'none';
 }
 
+function goFullScreen() {
+
+	document.getElementById('chat-area').style.display = 'none';
+
+	var z = document.getElementById('close-fullscreen');
+	z.style.position = 'absolute';
+	z.style.display = 'block';
+	z.style.top = '10';
+	z.style.right = '10';
+	z.style.height = '40px';
+	z.style.width = '40px';
+
+	var x = document.getElementById('text-area');
+	x.style.position = 'absolute';
+	x.style.top = '0';
+	x.style.left = '0';
+	x.style.width = '100%';
+	x.style.height = '100%';
+	x.style.zIndex = '800';
+
+}
+
+function closeFullscreen() {
+
+	document.getElementById('chat-area').style.display = 'block';
+
+	var x = document.getElementById('text-area');
+	x.style.position = 'relative';
+	x.style.width = '100%';
+	x.style.height = '100%';
+	x.style.zIndex = '1';
+
+	var z = document.getElementById('close-fullscreen');
+	z.style.display = 'none';
+
+}
+
 setOriginalTheme();
 var storedLanguage = getLanguageFromStorage();
 document.getElementById('mode').value = storedLanguage;

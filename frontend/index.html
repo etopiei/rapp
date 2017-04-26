@@ -39,6 +39,8 @@
 
 				</div>
 
+				<div id="close-fullscreen" class="button" onclick="closeFullscreen()"><p class="rotate close-arrow">&#x279a</p></div>
+
 				<div id="toolbar">
 
 					<div id="code-choice">
@@ -67,6 +69,9 @@
 									<span class="button" onclick="clearEditorText()">
 										Clear
 								</span>
+								<span class="button" onclick="goFullScreen()()">
+									Fullscreen &#x279a
+							</span>
 								</p>
 							</div>
 						</div>
@@ -79,7 +84,7 @@
 
 					</div>
 
-					<div class="right-side">
+					<div class="right-side" id="chat-area">
 
 						<div id="chat-heading">
 
