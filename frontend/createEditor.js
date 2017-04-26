@@ -346,7 +346,7 @@ function displayMessage(messageText, username) {
 	par.scrollTop = par.scrollHeight - par.offsetHeight;
 
 	if (document.getElementById('chat-area').style.display == 'none') {
-		numberOfMessages = document.getElementById('chat-notification').child.innerText;
+		numberOfMessages = document.getElementById('chat-notification').children[0].innerText;
 		if (numberOfMessages > 0) {
 			numberOfMessages++;
 			document.getElementById('chat-notification').children[0].innerText = numberOfMessages;
