@@ -374,6 +374,16 @@ function clearEditorText() {
 	editor.setValue("");
 }
 
+function giveOptions() {
+	document.getElementById('dropdown-button').style.display = 'none';
+	document.getElementById('toolbar').style.display = 'block';
+}
+
+function closeOptions() {
+	document.getElementById('dropdown-button').style.display = 'block';
+	document.getElementById('toolbar').style.display = 'none';
+}
+
 setOriginalTheme();
 var storedLanguage = getLanguageFromStorage();
 document.getElementById('mode').value = storedLanguage;

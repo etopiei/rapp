@@ -43,7 +43,22 @@
 	position: relative;
 }
 
+#dropdown-button {
+	width: 100%;
+	height: 4%;
+	background-color: floralwhite;
+}
+
+#option-text {
+	margin-top: 2px;
+}
+
+#option-text:hover {
+	cursor: pointer;
+}
+
 #toolbar {
+	display: none;
 	width: 100%;
 	height: 7%;
 	background-color: floralwhite;
@@ -58,7 +73,6 @@
 	width: 100%;
 	height: 7%;
 	text-align: center;
-	border-bottom: 2px solid;
 }
 
 #chat-title-text {
@@ -69,7 +83,7 @@
 
 #text-area {
 	width: 100%;
-	height: 93%;
+	height: 100%;
 }
 
 #code {
