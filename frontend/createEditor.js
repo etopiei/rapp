@@ -376,7 +376,9 @@ function clearEditorText() {
 
 function giveOptions() {
 	document.getElementById('dropdown-button').style.display = 'none';
-	document.getElementById('toolbar').style.display = 'block';
+	var x = document.getElementById('toolbar')
+	x.style.display = 'block';
+	x.style.height = '10%';
 }
 
 function closeOptions() {
