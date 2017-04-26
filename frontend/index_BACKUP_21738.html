@@ -1,0 +1,177 @@
+<html>
+
+<head>
+
+	<title>rapp</title>
+
+<<<<<<< HEAD
+        <link rel="Stylesheet" href="main.css" type="text/css" media=screen>
+        <link rel="stylesheet" href="codemirror-5.24.2/lib/codemirror.css">
+        <link rel="shortcut icon" type="image/png" href="favicon.ico">
+        <script src="codemirror-5.24.2/lib/codemirror.js"></script>
+        <script src="codemirror-5.24.2/addon/mode/loadmode.js"></script>
+=======
+	<link rel="Stylesheet" href="main.css" type="text/css" media=screen>
+	<link rel="stylesheet" href="codemirror-5.24.2/lib/codemirror.css">
+	<link rel="shortcut icon" type="image/png" href="favicon.ico">
+	<script src="codemirror-5.24.2/lib/codemirror.js"></script>
+	<script src="codemirror-5.24.2/addon/mode/loadmode.js"></script>
+>>>>>>> 147a67ff8ecd8506e82131df8f3b326fd710052a
+
+</head>
+
+<body>
+
+	<div id="background-dimmer" onclick="hidePopups()"></div>
+	<div id="start-pair-popup">
+		<p>Your id is <span class="variable" id="user-id"></span></p>
+		<input type="text" placeholder="Partner's ID" id="partner-id-input" />
+		<span class="button" onclick="sendPairRequest()">Connect</span>
+
+	</div>
+
+	<div id="content">
+
+		<div class="header">
+
+			<h1 id="header-title">rapp</h1>
+
+		</div>
+
+		<div id="bottom">
+			<div class="left-side">
+
+				<div id="dropdown-button">
+
+					<p onclick="giveOptions()" id="option-text">Tools &#x25BC</p>
+
+				</div>
+
+				<div id="close-fullscreen" class="button" onclick="closeFullscreen()"><p class="rotate close-arrow">&#x279a</p></div>
+
+				<div id="toolbar">
+
+					<div id="code-choice">
+						<p>
+							<span onclick="closeOptions()" id="option-text"> Close  &#x25B2</span>
+							<br>
+							Language:
+							<select id="mode" onchange="changeLanguage()">
+
+								<select>
+
+									Theme:
+									<select id="themeSelector" onchange="changeTheme()">
+
+									</select>
+
+									Keymap:
+									<select id="keymap-selector" onchange="changeKeyMap()">
+										<option value="default">Default</option>
+										<option value="vim">ViM</option>
+										<option value="emacs">Emacs</option>
+										<option value="sublime">Sublime</option>
+									</select>
+									<span class="button" onclick="saveTextAsFile()">
+										Save
+									</span>
+									<span class="button" onclick="clearEditorText()">
+										Clear
+								</span>
+								<span class="button" onclick="goFullScreen()()">
+									Fullscreen &#x279a
+							</span>
+								</p>
+							</div>
+						</div>
+
+						<div id="text-area">
+
+							<textarea id="code" name="codeArea" value=""></textarea>
+
+						</div>
+
+					</div>
+
+					<div class="right-side" id="chat-area">
+
+<<<<<<< HEAD
+                    <div id="chat-display">
+                        <div id="button-area">
+                            <span id="pair-button" class="pair-button" onclick="displayPairPopup()">
+					            Start Pairing
+				            </span>
+                        <span id="call-button" class="side-button" onclick="startCall(true)" style="display:none;">
+				            <div>
+					            Call &#9743
+				            </div>
+			            </span>
+			            <span id="hang-up-button" class="side-button" onclick="hangup()" style="display:none;background: red">
+				            <div>
+					            Hangup &#9743
+				            </div>
+			            </span>
+                        <span id="switch-button" class="side-button" onclick="switchRole()" style="display:none;">
+				            <div>
+					          Switch
+				            </div>
+			            </span>
+                        </div>
+                            <div id="chat-messages">
+                                <div class="wordwrap" id="messages-display"> </div>
+                            </div>
+                    </div>
+=======
+						<div id="chat-heading">
+>>>>>>> 147a67ff8ecd8506e82131df8f3b326fd710052a
+
+							<p id="chat-title-text"> Chat </p>
+
+						</div>
+
+						<div id="chat-display">
+							<div id="button-area">
+								<span id="pair-button" class="pair-button" onclick="displayPairPopup()">
+									Start Pairing
+								</span>
+								<span id="call-button" class="side-button" onclick="startCall(true)" style="display:none;">
+									<div>
+										Call &#9743
+									</div>
+								</span>
+								<span id="hang-up-button" class="side-button" onclick="hangup()" style="display:none;background: red">
+									<div>
+										Hangup &#9743
+									</div>
+								</span>
+								<span id="switch-button" class="side-button" onclick="switch()" style="display:none;">
+									<div>
+										Switch
+									</div>
+								</span>
+							</div>
+							<div id="chat-messages">
+								<div class="wordwrap" id="messages-display"> </div>
+							</div>
+						</div>
+
+						<div id="message-field">
+							<input type="text" name="message" id="chat-text" placeholder="Enter Message">
+							<audio id="sound" autoplay></audio>
+						</div>
+
+					</div>
+				</div>
+			</div>
+
+		</body>
+
+		<script src="storage.js"></script>
+		<script src="createEditor.js"></script>
+		<script src="serverCommunication.js"></script>
+		<script src="user-interface.js"></script>
+		<script src="codemirror-5.24.2/keymap/emacs.js"></script>
+		<script src="codemirror-5.24.2/keymap/sublime.js"></script>
+		<script src="codemirror-5.24.2/keymap/vim.js"></script>
+
+		</html>

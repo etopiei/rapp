@@ -30,44 +30,62 @@ function sendPairRequest() {
 	socket.send(JSON.stringify(messageObject));
 }
 
+function onChangeRole(role) {
+	if (role !== 'driver' && role !== 'observer') {
+		return;
+	}
+	editor.off("change", driverOnChange);
+	editor.off("beforeChange", observerOnChange);
+	if (role === 'driver') {
+		editor.on("change", driverOnChange);
+	} else {
+		editor.on("beforeChange", observerOnChange);
+	}
+}
+
 function onPairStart(msgObject) {
 	//This ensures that the loop on the server
 	//for when the user isn't paired is broken
 
 	//set the pair button to go away and show the call and switch buttons.
 
-	document.getElementById('pair-button').display = 'none';
-	document.getElementById('call-button').display = '';
-	document.getElementById('switch-button').display = '';
+	console.log('pairStart')
+
+	document.getElementById('pair-button').style.display = 'none';
+	document.getElementById('call-button').style.display = 'inline-flex';
+	document.getElementById('switch-button').style.display = 'inline-flex';
 
 	socket.send("{}");
 	if (msgObject.role === 'driver') {
-		editor.on("change", (instance, changeObj) => {
-			messageObject = {
-				messageType: "change",
-				changeObj: changeObj
-			};
-			
-			socket.send(JSON.stringify(messageObject));
-		});
-		addChange = function() {return};
+		editor.on("change", driverOnChange);
 	} else if (msgObject.role === 'observer') {
-		editor.on("beforeChange", (instance, changeObj) => {
-			//cancel changes made by the observer
-			if (changeObj.from.src !== 'outside') {
-				changeObj.cancel()
-				let addWidget = false;
-				for (let i = 0; i < changeObj.text.length; i++) {
-					let char = changeObj.text[i];
-					if (char.length > 0) {
-						addWidget = true;
-						break;
-					}
-				}
-				if (addWidget && allowNewWidget)
-					makeComment(changeObj);
+		editor.on("beforeChange", observerOnChange);
+	}
+}
+
+function driverOnChange(instance, changeObj) {
+	messageObject = {
+		messageType: "change",
+		changeObj: changeObj
+	};
+	
+	socket.send(JSON.stringify(messageObject));
+}
+
+function observerOnChange(instance, changeObj) {
+	//cancel changes made by the observer
+	if (changeObj.from.src !== 'outside') {
+		changeObj.cancel()
+		let addWidget = false;
+		for (let i = 0; i < changeObj.text.length; i++) {
+			let char = changeObj.text[i];
+			if (char.length > 0) {
+				addWidget = true;
+				break;
 			}
-		});
+		}
+		if (addWidget && allowNewWidget)
+			makeComment(changeObj);
 	}
 }
 
@@ -180,6 +198,10 @@ function handleMessage(message) {
 		onPairStart(msgObject);
 		break;
 	
+	case "role":
+		onChangeRole(msgObject.role);
+		break;
+	
 	case "chatMessage":
 		if (msgObject.senderId === userId) {
 			displayMessage(msgObject.chatMessage, "You");
@@ -196,8 +218,8 @@ function handleMessage(message) {
 		break;
 
 	case "changeLanguage":
-		if (typeof msgObject.langueage == "string") {
-			onChangeLanguage(msgObject.language);
+		if (typeof msgObject.language == "string") {
+			onChangeLanguage(msgObject.language, true);
 		}
 		break;
 
@@ -228,7 +250,6 @@ function handleMessage(message) {
 }
 
 function addChange(changeObj) {
-	
 	//Dirty hack to distinguish between changes added by the observer and driver,
 	//so that changes made by the observer can be cancelled.
 	changeObj.from.src = "outside";
@@ -252,14 +273,17 @@ editor.on("change", (instance, changeObj) => {
 	timeSinceLastChange = d.getTime() - lastSaveTime;
 
 	if (timeSinceLastChange > 30000) {
-
-		let textContent = editor.getValue();
-		fileStorage(textContent);
-		lastSaveTime = d.getTime();
-
+		save();
 	}
-    
 });
+
+window.onbeforeonload = save;
+
+function save() {
+	let textContent = editor.getValue();
+	fileStorage(textContent);
+	lastSaveTime = d.getTime();
+}
 
 function handleCall(msgObject) {
 	console.log("I got called.")
@@ -376,6 +400,13 @@ socket.changeLanguage = function(mode) {
 	let msg = {
 		messageType: "changeLanguage",
 		language: mode
+	};
+	socket.send(JSON.stringify(msg));
+}
+
+function switchRole() {
+	let msg = {
+		messageType: 'relinquishControl'
 	};
 	socket.send(JSON.stringify(msg));
 }
