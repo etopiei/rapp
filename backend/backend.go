@@ -109,13 +109,6 @@ func sendToPairChannel(u *userInfo) error {
 }
 
 func write(w http.ResponseWriter, req *http.Request) {
-	if req.RequestURI[0] == '/' {
-		req.RequestURI = req.RequestURI[1:] 
-	}
-	if len(req.RequestURI) == 0 {
-		http.ServeFile(w, req, "index2.html")
-		return
-	}
 	http.ServeFile(w, req, req.RequestURI)
 }
 
@@ -202,11 +195,10 @@ func pairLoop(pair *pairInfo) {
 
 			case "relinquishControl":
 				pair.driver, pair.observer = pair.observer, pair.driver
-
 				var msgDriver = make(map[string]interface{})
 				var msgObserver = make(map[string]interface{})
-				msgDriver["messageType"] = "connection"
-				msgObserver["messageType"] = "connection"
+				msgDriver["messageType"] = "role"
+				msgObserver["messageType"] = "role"
 
 				msgDriver["id"] = pair.observer.id
 				msgDriver["role"] = "driver"
@@ -252,5 +244,5 @@ func main() {
 	fmt.Println("starting server")
 	http.HandleFunc("/pair", onConnect)
 	http.HandleFunc("/", write)
-	http.ListenAndServeTLS(":443", "../cert.pem", "../key.pem", nil)
+	http.ListenAndServeTLS(":8000", "../cert.pem", "../key.pem", nil)
 }
