@@ -1,5 +1,3 @@
-'use strict';
-
 var socket = new WebSocket("wss://" + window.location.hostname + ":8000/pair");
 
 socket.onopen = () => {console.log("You're now connected.");}
