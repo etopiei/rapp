@@ -109,6 +109,9 @@ func sendToPairChannel(u *userInfo) error {
 }
 
 func write(w http.ResponseWriter, req *http.Request) {
+	if req.RequestURI[0] == '/' {
+		req.RequestURI = req.RequestURI[1:]
+	}
 	http.ServeFile(w, req, req.RequestURI)
 }
 
