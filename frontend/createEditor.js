@@ -337,6 +337,16 @@ function displayMessage(messageText, username) {
 	display.appendChild(p);
 	let par = display.parentElement;
 	par.scrollTop = par.scrollHeight - par.offsetHeight;
+
+	if (document.getElementById('chat-area').style.display == 'none') {
+		numberOfMessages = document.getElementById('chat-notification').child.innerText;
+		if (numberOfMessages > 0) {
+			numberOfMessages++;
+			document.getElementById('chat-notification').child.innerText = numberOfMessages;
+		} else {
+			document.getElementById('chat-notification').child.innerText = "1";
+		}
+	}
 }
 
 function saveTextAsFile()
@@ -405,6 +415,14 @@ function goFullScreen() {
 	x.style.width = '100%';
 	x.style.height = '100%';
 	x.style.zIndex = '800';
+
+	var y = document.getElementById('chat-notification');
+	y.style.positon = 'absolute';
+	y.style.display = 'block';
+	y.style.bottom = '0';
+	y.style.right = '10';
+	y.style.height = '40px';
+	y.style.width = '40px';
 
 }
 
