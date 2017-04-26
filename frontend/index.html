@@ -92,28 +92,27 @@
 							<p id="chat-title-text"> Chat </p>
 
 						</div>
-
+						<div id="button-area">
+							<span id="pair-button" class="pair-button" onclick="displayPairPopup()">
+								Start Pairing
+							</span>
+							<span id="call-button" class="side-button" onclick="startCall(true)" style="display:none;">
+								<div>
+									Call &#9743
+								</div>
+							</span>
+							<span id="hang-up-button" class="side-button" onclick="hangup()" style="display:none;background: red">
+								<div>
+									Hangup &#9743
+								</div>
+							</span>
+							<span id="switch-button" class="side-button" onclick="switchRole()" style="display:none;">
+								<div>
+									Switch
+								</div>
+							</span>
+						</div>
 						<div id="chat-display">
-							<div id="button-area">
-								<span id="pair-button" class="pair-button" onclick="displayPairPopup()">
-									Start Pairing
-								</span>
-								<span id="call-button" class="side-button" onclick="startCall(true)" style="display:none;">
-									<div>
-										Call &#9743
-									</div>
-								</span>
-								<span id="hang-up-button" class="side-button" onclick="hangup()" style="display:none;background: red">
-									<div>
-										Hangup &#9743
-									</div>
-								</span>
-								<span id="switch-button" class="side-button" onclick="switchRole()" style="display:none;">
-									<div>
-										Switch
-									</div>
-								</span>
-							</div>
 							<div id="chat-messages">
 								<div class="wordwrap" id="messages-display"> </div>
 							</div>
