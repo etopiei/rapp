@@ -213,7 +213,7 @@ for (i in modes) {
 var themeSelector = document.getElementById("themeSelector");
 for (i in themes) {
 	let option = document.createElement("option");
-		
+
 		//remove the .css
 	option.innerText = themes[i].name;
 	themeSelector.appendChild(option);
@@ -255,7 +255,7 @@ function changeTheme() {
 	let themeFile = themes[index].name;
 	themeStorage(themeFile);
 	loadTheme(themeFile);
-	editor.setOption("theme", themes[index].name); 
+	editor.setOption("theme", themes[index].name);
 }
 
 function loadTheme(theme) { //THEME PARAMETER SHOULD BE OF FORM: "name"
@@ -271,7 +271,7 @@ function changeKeyMap() {
 	let value = keyMapSelector[keyMapSelector.selectedIndex].value;
 	editor.setOption("keyMap", value);
 }
-	
+
 modeInput.selectedIndex = 0;
 
 function onChangeLanguage(mode) {
@@ -282,7 +282,7 @@ function onChangeLanguage(mode) {
 	}
 	console.log(lang);
 	CodeMirror.requireMode(mode, ()=> {
-		editor.setOption("mode", lang); 
+		editor.setOption("mode", lang);
 	});
 }
 
@@ -368,6 +368,10 @@ function saveTextAsFile()
 
     downloadLink.click();
 	downloadLink.remove();
+}
+
+function clearEditorText() {
+	editor.setValue("");
 }
 
 setOriginalTheme();
