@@ -274,13 +274,20 @@ function changeKeyMap() {
 	
 modeInput.selectedIndex = 0;
 
-function onChangeLanguage(mode) {
+function onChangeLanguage(mode, outside) {
+	if (outside) {
+		let index = modes.indexOf(mode);
+		console.log(mode);
+		console.log(index);
+		if (index !== -1) {
+			modeInput.selectedIndex = index;
+		}
+	}
 	let lang = mode;
 	if (typeof c_like[mode] === "string") {
 		lang = c_like[mode];
 		mode = "clike"
 	}
-	console.log(lang);
 	CodeMirror.requireMode(mode, ()=> {
 		editor.setOption("mode", lang); 
 	});

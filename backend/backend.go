@@ -197,6 +197,7 @@ func pairLoop(pair *pairInfo) {
 				pair.observer.socket.WriteJSON(outMsg)
 
 			case "relinquishControl":
+				fmt.Println("control is gone")
 				pair.driver, pair.observer = pair.observer, pair.driver
 				var msgDriver = make(map[string]interface{})
 				var msgObserver = make(map[string]interface{})
