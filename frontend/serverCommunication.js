@@ -66,7 +66,7 @@ function onPairStart(msgObject) {
 }
 
 function driverOnChange(instance, changeObj) {
-	messageObject = {
+	let messageObject = {
 		messageType: "change",
 		changeObj: changeObj
 	};
