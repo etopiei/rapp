@@ -70,7 +70,7 @@ function driverOnChange(instance, changeObj) {
 		messageType: "change",
 		changeObj: changeObj
 	};
-	
+
 	socket.send(JSON.stringify(messageObject));
 }
 
@@ -167,7 +167,7 @@ function addBookmark(pos, text) {
 		bm.clear();
 	}
 }
-	
+
 
 function sendBookmark(bm, text) {
 	let pos = bm.find();
@@ -199,11 +199,11 @@ function handleMessage(message) {
 	case "connection":
 		onPairStart(msgObject);
 		break;
-	
+
 	case "role":
 		onChangeRole(msgObject.role);
 		break;
-	
+
 	case "chatMessage":
 		if (msgObject.senderId === userId) {
 			displayMessage(msgObject.chatMessage, "You");
@@ -212,7 +212,7 @@ function handleMessage(message) {
 		}
 
 		break;
-		
+
 	case "change":
 		if (typeof msgObject.changeObj === "object") {
 			addChange(msgObject.changeObj);
@@ -232,7 +232,7 @@ function handleMessage(message) {
 		if (msgObject.icecandidate)
 			pc.addIceCandidate(new RTCIceCandidate(msgObject.icecandidate));
 		break;
-	
+
 	case "startCall":
 		handleCall(msgObject);
 		break;
@@ -240,7 +240,7 @@ function handleMessage(message) {
 	case "hangup":
 		hangup(true);
 		break;
-	
+
 	case "addMarker":
 		addBookmark(msgObject.position, msgObject.text);
 		break;
@@ -274,7 +274,7 @@ editor.on("change", (instance, changeObj) => {
 	//IT IS FOR CLIENT SIDE STORGAE FOR FUTURE SESSIONS
 
 	let d = new Date();
-	timeSinceLastChange = d.getTime() - lastSaveTime;
+	let timeSinceLastChange = d.getTime() - lastSaveTime;
 
 	if (timeSinceLastChange > 30000) {
 		save(d);
