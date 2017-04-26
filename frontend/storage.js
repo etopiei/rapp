@@ -118,7 +118,7 @@ function fileStorage(textContent) {
 
 	if(typeof(Storage) !== "undefined") {
 
-		var textContent = localStorage.setItem("code", textContent);
+		localStorage.setItem("code", textContent);
 
 	} else {
 
