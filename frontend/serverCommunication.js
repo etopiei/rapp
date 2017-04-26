@@ -279,7 +279,7 @@ editor.on("change", (instance, changeObj) => {
 	}
 });
 
-window.onbeforeonload = save;
+window.onbeforeunload = save;
 
 function save(d) {
 	if (d)
