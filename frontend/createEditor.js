@@ -349,9 +349,17 @@ function displayMessage(messageText, username) {
 		numberOfMessages = document.getElementById('chat-notification').child.innerText;
 		if (numberOfMessages > 0) {
 			numberOfMessages++;
-			document.getElementById('chat-notification').child.innerText = numberOfMessages;
+			document.getElementById('chat-notification').children[0].innerText = numberOfMessages;
 		} else {
-			document.getElementById('chat-notification').child.innerText = "1";
+			document.getElementById('chat-notification').children[0].innerText = "1";
+
+			var y = document.getElementById('chat-notification');
+			y.style.display = 'block';
+			y.style.bottom = '10';
+			y.style.right = '10';
+			y.style.height = '40px';
+			y.style.width = '40px';
+
 		}
 	}
 }
@@ -422,14 +430,6 @@ function goFullScreen() {
 	x.style.width = '100%';
 	x.style.height = '100%';
 	x.style.zIndex = '800';
-
-	var y = document.getElementById('chat-notification');
-	y.style.positon = 'absolute';
-	y.style.display = 'block';
-	y.style.bottom = '0';
-	y.style.right = '10';
-	y.style.height = '40px';
-	y.style.width = '40px';
 
 }
 

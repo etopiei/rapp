@@ -322,6 +322,7 @@
 }
 
 #chat-notification {
+	position: absolute;
 	display: none;
 	z-index: 900;
 	font-size: 40px;
