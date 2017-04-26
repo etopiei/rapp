@@ -1,3 +1,5 @@
+'use strict';
+
 var socket = new WebSocket("wss://127.0.0.1:8000/pair");
 
 socket.onopen = () => {console.log("You're now connected.");}
@@ -264,25 +266,28 @@ function sendMessage(message) {
 	socket.send(JSON.stringify(messageObject));
 }
 
+var lastSaveTime = 0;
+
 editor.on("change", (instance, changeObj) => {
 
 	//BELOW CODE ISN'T FOR SERVER COMMUNICATION
 	//IT IS FOR CLIENT SIDE STORGAE FOR FUTURE SESSIONS
 
-	d = new Date();
+	let d = new Date();
 	timeSinceLastChange = d.getTime() - lastSaveTime;
 
 	if (timeSinceLastChange > 30000) {
-		save();
+		save(d);
 	}
 });
 
 window.onbeforeonload = save;
 
-function save() {
+function save(d) {
+	if (d)
+		lastSaveTime = d.getTime();
 	let textContent = editor.getValue();
 	fileStorage(textContent);
-	lastSaveTime = d.getTime();
 }
 
 function handleCall(msgObject) {
