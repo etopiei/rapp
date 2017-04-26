@@ -4,11 +4,19 @@
 
 	<title>rapp</title>
 
+<<<<<<< HEAD
+        <link rel="Stylesheet" href="main.css" type="text/css" media=screen>
+        <link rel="stylesheet" href="codemirror-5.24.2/lib/codemirror.css">
+        <link rel="shortcut icon" type="image/png" href="favicon.ico">
+        <script src="codemirror-5.24.2/lib/codemirror.js"></script>
+        <script src="codemirror-5.24.2/addon/mode/loadmode.js"></script>
+=======
 	<link rel="Stylesheet" href="main.css" type="text/css" media=screen>
 	<link rel="stylesheet" href="codemirror-5.24.2/lib/codemirror.css">
 	<link rel="shortcut icon" type="image/png" href="favicon.ico">
 	<script src="codemirror-5.24.2/lib/codemirror.js"></script>
 	<script src="codemirror-5.24.2/addon/mode/loadmode.js"></script>
+>>>>>>> 147a67ff8ecd8506e82131df8f3b326fd710052a
 
 </head>
 
@@ -87,7 +95,35 @@
 
 					<div class="right-side" id="chat-area">
 
+<<<<<<< HEAD
+                    <div id="chat-display">
+                        <div id="button-area">
+                            <span id="pair-button" class="pair-button" onclick="displayPairPopup()">
+					            Start Pairing
+				            </span>
+                        <span id="call-button" class="side-button" onclick="startCall(true)" style="display:none;">
+				            <div>
+					            Call &#9743
+				            </div>
+			            </span>
+			            <span id="hang-up-button" class="side-button" onclick="hangup()" style="display:none;background: red">
+				            <div>
+					            Hangup &#9743
+				            </div>
+			            </span>
+                        <span id="switch-button" class="side-button" onclick="switchRole()" style="display:none;">
+				            <div>
+					          Switch
+				            </div>
+			            </span>
+                        </div>
+                            <div id="chat-messages">
+                                <div class="wordwrap" id="messages-display"> </div>
+                            </div>
+                    </div>
+=======
 						<div id="chat-heading">
+>>>>>>> 147a67ff8ecd8506e82131df8f3b326fd710052a
 
 							<p id="chat-title-text"> Chat </p>
 

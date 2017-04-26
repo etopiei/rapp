@@ -213,7 +213,7 @@ for (i in modes) {
 var themeSelector = document.getElementById("themeSelector");
 for (i in themes) {
 	let option = document.createElement("option");
-		
+
 		//remove the .css
 	option.innerText = themes[i].name;
 	themeSelector.appendChild(option);
@@ -255,7 +255,7 @@ function changeTheme() {
 	let themeFile = themes[index].name;
 	themeStorage(themeFile);
 	loadTheme(themeFile);
-	editor.setOption("theme", themes[index].name); 
+	editor.setOption("theme", themes[index].name);
 }
 
 function loadTheme(theme) { //THEME PARAMETER SHOULD BE OF FORM: "name"
@@ -271,7 +271,7 @@ function changeKeyMap() {
 	let value = keyMapSelector[keyMapSelector.selectedIndex].value;
 	editor.setOption("keyMap", value);
 }
-	
+
 modeInput.selectedIndex = 0;
 
 function onChangeLanguage(mode, outside) {
@@ -289,7 +289,7 @@ function onChangeLanguage(mode, outside) {
 		mode = "clike"
 	}
 	CodeMirror.requireMode(mode, ()=> {
-		editor.setOption("mode", lang); 
+		editor.setOption("mode", lang);
 	});
 }
 
@@ -375,6 +375,59 @@ function saveTextAsFile()
 
     downloadLink.click();
 	downloadLink.remove();
+}
+
+function clearEditorText() {
+	editor.setValue("");
+}
+
+function giveOptions() {
+	document.getElementById('dropdown-button').style.display = 'none';
+	var x = document.getElementById('toolbar')
+	x.style.display = 'block';
+	x.style.height = '10%';
+}
+
+function closeOptions() {
+	document.getElementById('dropdown-button').style.display = 'block';
+	document.getElementById('toolbar').style.display = 'none';
+}
+
+function goFullScreen() {
+
+	document.getElementById('chat-area').style.display = 'none';
+
+	var z = document.getElementById('close-fullscreen');
+	z.style.position = 'absolute';
+	z.style.display = 'block';
+	z.style.top = '10';
+	z.style.right = '10';
+	z.style.height = '40px';
+	z.style.width = '40px';
+
+	var x = document.getElementById('text-area');
+	x.style.position = 'absolute';
+	x.style.top = '0';
+	x.style.left = '0';
+	x.style.width = '100%';
+	x.style.height = '100%';
+	x.style.zIndex = '800';
+
+}
+
+function closeFullscreen() {
+
+	document.getElementById('chat-area').style.display = 'block';
+
+	var x = document.getElementById('text-area');
+	x.style.position = 'relative';
+	x.style.width = '100%';
+	x.style.height = '100%';
+	x.style.zIndex = '1';
+
+	var z = document.getElementById('close-fullscreen');
+	z.style.display = 'none';
+
 }
 
 setOriginalTheme();

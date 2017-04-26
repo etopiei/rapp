@@ -269,17 +269,17 @@ editor.on("change", (instance, changeObj) => {
 	//BELOW CODE ISN'T FOR SERVER COMMUNICATION
 	//IT IS FOR CLIENT SIDE STORGAE FOR FUTURE SESSIONS
 
-	let textContent = editor.getValue();
+	d = new Date();
+	timeSinceLastChange = d.getTime() - lastSaveTime;
 
-	//Do we really need to do this every time the user makes a change?
-	//Maybe it would be better to do it at an interval
-	fileStorage(textContent);
+	if (timeSinceLastChange > 30000) {
+		let textContent = editor.getValue();
+		fileStorage(textContent);
+		lastSaveTime = d.getTime();
+
+	}
+    
 });
-
-function fileStorage(textContent) {
-
-    //SET FILE CONTENTS IN STORAGE FOR LATER OR IF DISCONNECT
-}
 
 function handleCall(msgObject) {
 	console.log("I got called.")
