@@ -446,6 +446,9 @@ function closeFullscreen() {
 	var z = document.getElementById('close-fullscreen');
 	z.style.display = 'none';
 
+	var y = document.getElementById('chat-notification');
+	y.style.display = 'none';
+
 }
 
 setOriginalTheme();
