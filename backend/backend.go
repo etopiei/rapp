@@ -200,6 +200,22 @@ func pairLoop(pair *pairInfo) {
 				pair.driver.socket.WriteJSON(outMsg)
 				pair.observer.socket.WriteJSON(outMsg)
 
+			case "relinquishControl":
+				pair.driver, pair.observer = pair.observer, pair.driver
+
+				var msgDriver = make(map[string]interface{})
+				var msgObserver = make(map[string]interface{})
+				msgDriver["messageType"] = "connection"
+				msgObserver["messageType"] = "connection"
+
+				msgDriver["id"] = pair.observer.id
+				msgDriver["role"] = "driver"
+				msgObserver["id"] = pair.driver.id
+				msgObserver["role"] = "observer"
+
+				pair.driver.socket.WriteJSON(msgDriver)
+				pair.observer.socket.WriteJSON(msgObserver)
+
 			default:
 				pair.observer.socket.WriteMessage(websocket.TextMessage, msg)
 			}
@@ -236,5 +252,5 @@ func main() {
 	fmt.Println("starting server")
 	http.HandleFunc("/pair", onConnect)
 	http.HandleFunc("/", write)
-	http.ListenAndServeTLS(":8000", "cert.pem", "key.pem", nil)
+	http.ListenAndServeTLS(":443", "../cert.pem", "../key.pem", nil)
 }
