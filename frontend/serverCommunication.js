@@ -1,4 +1,4 @@
-var socket = new WebSocket("wss://127.0.0.1:8000/pair");
+var socket = new WebSocket("wss://" + window.location.hostname + ":8000/pair");
 
 socket.onopen = () => {console.log("You're now connected.");}
 socket.onmessage = (message) => {handleMessage(message)}
