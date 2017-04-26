@@ -273,13 +273,17 @@ editor.on("change", (instance, changeObj) => {
 	timeSinceLastChange = d.getTime() - lastSaveTime;
 
 	if (timeSinceLastChange > 30000) {
-		let textContent = editor.getValue();
-		fileStorage(textContent);
-		lastSaveTime = d.getTime();
-
+		save();
 	}
-    
 });
+
+window.onbeforeonload = save;
+
+function save() {
+	let textContent = editor.getValue();
+	fileStorage(textContent);
+	lastSaveTime = d.getTime();
+}
 
 function handleCall(msgObject) {
 	console.log("I got called.")
