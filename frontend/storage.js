@@ -2,7 +2,7 @@ function themeStorage(theme) {
     //SET CURRENT THEME TO STORAGE TO RESET ON RETURN
 
     if (typeof(Storage) !== "undefined") {
-    
+
         //store the theme in the local browser storage
 
         localStorage.setItem("theme", theme);
@@ -39,7 +39,7 @@ function languageStorage(mode){
     //SET CURRENT LANGUAGE TO STORAGE TO RESET ON RETURN
 
     if (typeof(Storage) !== "undefined") {
-    
+
         //store the theme in the local browser storage
 
         localStorage.setItem("mode", mode);
@@ -65,7 +65,7 @@ function getLanguageFromStorage() {
     } else {
 
         var mode = getCookie("mode");
-    }    
+    }
 
     if (mode == "") {
         return "python";
@@ -94,7 +94,7 @@ function retrieveFile() {
         textContent = "";
     }
 
-    return textContent; 
+    return textContent;
 
 }
 
@@ -112,4 +112,18 @@ function getCookie(cname) {
         }
     }
     return "";
+}
+
+function fileStorage(textContent) {
+
+	if(typeof(Storage) !== "undefined") {
+
+		var textContent = localStorage.setItem("code", textContent);
+
+	} else {
+
+		//No web storage support - bad luck.
+
+	}
+
 }
