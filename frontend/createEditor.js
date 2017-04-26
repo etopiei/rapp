@@ -397,6 +397,7 @@ function saveTextAsFile()
 
 function clearEditorText() {
 	editor.setValue("");
+	fileStorage("");
 }
 
 function giveOptions() {

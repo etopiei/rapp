@@ -279,7 +279,7 @@ editor.on("change", (instance, changeObj) => {
 	}
 });
 
-window.onbeforeonload = save;
+window.onbeforeunload = save;
 
 function save(d) {
 	if (d)
@@ -299,7 +299,7 @@ function handleCall(msgObject) {
 //response : bool, if true, says that this is a response to the other person
 //                 hanging up. Hence, do not send the hangup message.
 function hangup(response) {
-	document.getElementById('call-button').style.display = 'table-cell';
+	document.getElementById('call-button').style.display = 'inline-block';
 	document.getElementById('hang-up-button').style.display = 'none';
 
 	if (!response) {
@@ -332,7 +332,7 @@ function startCall(myCall) {
 	}
 
 	document.getElementById('call-button').style.display = 'none';
-	document.getElementById('hang-up-button').style.display = 'table-cell';
+	document.getElementById('hang-up-button').style.display = 'inline-block';
 
 	if (pc.remoteDescription.type === "answer")
 		return
