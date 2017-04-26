@@ -448,6 +448,7 @@ function closeFullscreen() {
 
 	var y = document.getElementById('chat-notification');
 	y.style.display = 'none';
+	y.children[0].innerText = "";
 
 }
 

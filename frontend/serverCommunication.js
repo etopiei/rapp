@@ -52,8 +52,8 @@ function onPairStart(msgObject) {
 	console.log('pairStart')
 
 	document.getElementById('pair-button').style.display = 'none';
-	document.getElementById('call-button').style.display = 'inline-flex';
-	document.getElementById('switch-button').style.display = 'inline-flex';
+	document.getElementById('call-button').style.display = '';
+	document.getElementById('switch-button').style.display = '';
 
 	socket.send("{}");
 	if (msgObject.role === 'driver') {
