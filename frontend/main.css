@@ -197,7 +197,6 @@
 }
 
 #background-dimmer {
-	display: none;
 	position: absolute;
 	width: 100%;
 	height: 100%;
@@ -207,17 +206,28 @@
 	left: 0;
 }
 
-#start-pair-popup {
-	display: none;
+.popup {
 	position: absolute;
 	width: 30%;
 	height: 30%;
-	z-index: 11;
-	background: white;
 	margin: auto;
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
+	display: none;
+}
+
+#on-start-popup {
+	z-index: 12;
+	background: white;
+	font-size: 2em;
+	padding: 1em;
+}
+
+#start-pair-popup {
+	display: block;
+	z-index: 11;
+	background: white;
 	font-size: 2em;
 	padding: 1em;
 }

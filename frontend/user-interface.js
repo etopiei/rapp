@@ -11,7 +11,9 @@ function displayPairPopup() {
 }
 
 function hidePopups() {
-	popup.style.display="none";
+	document.getElementsByClassName("popup").forEach(elem => {
+		elem.style.display = 'none';
+	});
 	dimmer.style.display="none";
 }
 

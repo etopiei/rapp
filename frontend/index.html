@@ -15,11 +15,15 @@
 <body>
 
 	<div id="background-dimmer" onclick="hidePopups()"></div>
-	<div id="start-pair-popup">
+	<div id="start-pair-popup" class="popup">
 		<p>Your id is <span class="variable" id="user-id"></span></p>
 		<input type="text" placeholder="Partner's ID" id="partner-id-input" />
 		<span class="button" onclick="sendPairRequest()">Connect</span>
 
+	</div>
+
+	<div id="on-start-popup" class="popup">
+		
 	</div>
 
 	<div id="content">

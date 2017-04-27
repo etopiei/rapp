@@ -56,8 +56,17 @@ function onPairStart(msgObject) {
 	document.getElementById('switch-button').style.display = '';
 
 	socket.send("{}");
+	let popup = document.getElementById('on-start-popup');
+	popup.innerHTML = "<p>You're now paired as the " + msgObject.role + ".</p>";
+	popup.style.display = 'block';
 	if (msgObject.role === 'driver') {
 		editor.on("change", driverOnChange);
+		popup.innerHTML = "<p>You're now paired as the " +  + "</p>"
+		let msg = {
+			messageType: "editorContent",
+			content: editor.getValue()
+		};
+		socket.send(JSON.stringify(msg));
 	} else if (msgObject.role === 'observer') {
 		editor.on("beforeChange", observerOnChange);
 	}
@@ -241,6 +250,10 @@ function handleMessage(message) {
 
 	case "addMarker":
 		addBookmark(msgObject.position, msgObject.text);
+		break;
+
+	case "editorContent":
+		editor.setValue(msgObject.content);
 		break;
 
 	default:
