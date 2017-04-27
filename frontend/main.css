@@ -332,3 +332,45 @@
 	z-index: 900;
 	font-size: 40px;
 }
+
+#chat-preview {
+	position: absolute;
+	display: none;
+	z-index: 900;
+	font-size: 20px;
+	height: 100%;
+	width: 15%;
+	right: 80;
+	top: 0;
+	color: white;
+}
+
+#float {
+	position: relative;
+	-webkit-animation: floatBubble 4s infinite  normal ease-out;
+	animation: floatBubble 4s infinite  normal ease-out;
+}
+@-webkit-keyframes floatBubble {
+	0% {
+		top: 100%;
+	}
+	75% {
+		opacity: 0;
+	}
+	100% {
+		top: 0px;
+		opacity: 0;
+	}
+}
+@keyframes floatBubble {
+	0% {
+		top: 100%;
+	}
+	75% {
+		opacity: 0;
+	}
+	100% {
+		top: 0px;
+		opacity: 0;
+	}
+}

@@ -346,11 +346,14 @@ function displayMessage(messageText, username) {
 	par.scrollTop = par.scrollHeight - par.offsetHeight;
 
 	if (document.getElementById('chat-area').style.display == 'none') {
+
 		numberOfMessages = document.getElementById('chat-notification').children[0].innerText;
+
 		if (numberOfMessages > 0) {
 			numberOfMessages++;
 			document.getElementById('chat-notification').children[0].innerText = numberOfMessages;
 		} else {
+
 			document.getElementById('chat-notification').children[0].innerText = "1";
 
 			var y = document.getElementById('chat-notification');
@@ -361,6 +364,23 @@ function displayMessage(messageText, username) {
 			y.style.width = '40px';
 
 		}
+
+		var newMessage =document.createElement('p');
+		if (textToDisplay.length > 40) {
+			newMessage.innerText = textToDisplay.slice(0,37) + "...";
+		}
+		else {
+			newMessage.innerText = textToDisplay;
+		}
+		newMessage.id = 'float';
+
+		var q = document.getElementById('chat-preview');
+		q.appendChild(newMessage);
+
+		setTimeout(function(){
+			q.removeChild(q.lastChild);
+		},4000);
+
 	}
 }
 
@@ -432,6 +452,9 @@ function goFullScreen() {
 	x.style.height = '100%';
 	x.style.zIndex = '800';
 
+	var q = document.getElementById('chat-preview');
+	q.style.display = 'block';
+
 }
 
 function closeFullscreen() {
@@ -450,6 +473,9 @@ function closeFullscreen() {
 	var y = document.getElementById('chat-notification');
 	y.style.display = 'none';
 	y.children[0].innerText = "";
+
+	var q = document.getElementById('chat-preview');
+	q.style.display = 'none';
 
 }
 
