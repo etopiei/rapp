@@ -252,7 +252,9 @@ function handleMessage(message) {
 		break;
 
 	case "editorContent":
+		editor.off("beforeChange", observerOnChange);
 		editor.setValue(msgObject.content);
+		editor.on("beforeChange", observerOnChange);
 		break;
 
 	default:
