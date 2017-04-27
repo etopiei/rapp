@@ -56,12 +56,11 @@ function onPairStart(msgObject) {
 	document.getElementById('switch-button').style.display = '';
 
 	socket.send("{}");
-	let popup = document.getElementById('on-start-popup');
-	popup.innerHTML = "<p>You're now paired as the " + msgObject.role + ".</p>";
-	popup.style.display = 'block';
+	let popup2 = document.getElementById('on-start-popup');
+	popup2.innerHTML = "<p>You're now paired as the " + msgObject.role + ".</p>";
+	popup2.style.display = 'block';
 	if (msgObject.role === 'driver') {
 		editor.on("change", driverOnChange);
-		popup.innerHTML = "<p>You're now paired as the " +  + "</p>"
 		let msg = {
 			messageType: "editorContent",
 			content: editor.getValue()
