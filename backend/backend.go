@@ -45,8 +45,8 @@ func makePair(user1 *userInfo, id2 int, user1Driver bool) {
 		return
 	}
 
-	if user1 != user2 {
-		go pairLoop(pair)
+	if user1 == user2 {
+		return
 	}
 
 	var pair *pairInfo
@@ -57,6 +57,7 @@ func makePair(user1 *userInfo, id2 int, user1Driver bool) {
 	}
 	user1.pair = pair
 	user2.pair = pair
+	go pairLoop(pair)
 }
 
 func handleNonPairMessage(u *userInfo) error {
