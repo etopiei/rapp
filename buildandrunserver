@@ -1,0 +1,6 @@
+git pull
+cd backend
+go build
+mv backend ../frontend/server
+cd ../frontend
+nohup ./server &
