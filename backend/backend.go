@@ -45,6 +45,10 @@ func makePair(user1 *userInfo, id2 int, user1Driver bool) {
 		return
 	}
 
+	if user1 != user2 {
+		go pairLoop(pair)
+	}
+
 	var pair *pairInfo
 	if user1Driver {
 		pair = &pairInfo{driver: user1, observer: user2}
@@ -53,7 +57,6 @@ func makePair(user1 *userInfo, id2 int, user1Driver bool) {
 	}
 	user1.pair = pair
 	user2.pair = pair
-	go pairLoop(pair)
 }
 
 func handleNonPairMessage(u *userInfo) error {
@@ -130,7 +133,7 @@ func onConnect(w http.ResponseWriter, req *http.Request) {
 
 	user = &userInfo{id: id, pair: nil, socket: c, ch: make(chan []byte)}
 	users[id] = user
-	
+
 	var msg = make(map[string]interface{})
 	msg["messageType"] = "id"
 	fmt.Println(strconv.Itoa(id))
