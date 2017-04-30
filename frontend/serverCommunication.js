@@ -123,16 +123,6 @@ function observerOnChange(instance, changeObj) {
 	//cancel changes made by the observer
 	if (changeObj.from.src !== 'outside') {
 		changeObj.cancel()
-		let addWidget = false;
-		for (let i = 0; i < changeObj.text.length; i++) {
-			let char = changeObj.text[i];
-			if (char.length > 0) {
-				addWidget = true;
-				break;
-			}
-		}
-		if (addWidget && allowNewWidget)
-			makeComment(changeObj);
 	}
 }
 
