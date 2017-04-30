@@ -58,7 +58,7 @@ function onChangeRole(role) {
 		document.getElementById('follow-option').style.display = 'none';
 	} else {
 		editor.on("beforeChange", observerOnChange);
-		document.getElementById('follow-option').style.display = '';
+		document.getElementById('follow-option').style.display = 'none';
 	}
 }
 
@@ -88,7 +88,7 @@ function onPairStart(msgObject) {
 		};
 		socket.send(JSON.stringify(msg));
 	} else if (msgObject.role === 'observer') {
-		document.getElementById('follow-option').style.display = '';
+		document.getElementById('follow-option').style.display = 'none';
 		editor.on("beforeChange", observerOnChange);
 	}
 }
@@ -298,7 +298,7 @@ function handleMessage(message) {
 
 	case "cursorChange":
 		handleMove(msgObject);
-		break;	
+		break;
 
 	default:
 		console.log(msgObject);
