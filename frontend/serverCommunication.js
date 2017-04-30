@@ -1,9 +1,26 @@
-var socket = new WebSocket("wss://" + window.location.hostname + ":8000/pair");
+var socket = null;
+try {
+	var socket = new WebSocket("wss://" + window.location.hostname + ":8000/pair");
 
-socket.onopen = () => {console.log("You're now connected.");}
-socket.onmessage = (message) => {handleMessage(message)}
-socket.onerror = () => {console.log("Something bad happened...");}
-socket.onclose = (close) => {console.log("The socket was closed", (close.wasClean ? "cleanly" : "uncleanly"), "with code", close.code);}
+	socket.onopen = () => {console.log("You're now connected.");}
+	socket.onmessage = (message) => {handleMessage(message)}
+	socket.onerror = () => {console.log("Something bad happened...");}
+	socket.onclose = (close) => {console.log("The socket was closed", (close.wasClean ? "cleanly" : "uncleanly"), "with code", close.code);}
+
+	//socket.changeLanguage(mode : string - the language to change to)
+	socket.changeLanguage = function(mode) {
+		if (!mode) {
+			return;
+		}
+		let msg = {
+			messageType: "changeLanguage",
+			language: mode
+		};
+		socket.send(JSON.stringify(msg));
+	}
+} catch (e) {
+	console.log(e);
+}
 
 var userId = null;
 
@@ -38,8 +55,10 @@ function onChangeRole(role) {
 	editor.off("beforeChange", observerOnChange);
 	if (role === 'driver') {
 		editor.on("change", driverOnChange);
+		document.getElementById('follow-option').style.display = 'none';
 	} else {
 		editor.on("beforeChange", observerOnChange);
+		document.getElementById('follow-option').style.display = '';
 	}
 }
 
@@ -61,14 +80,34 @@ function onPairStart(msgObject) {
 	popup2.style.display = 'block';
 	if (msgObject.role === 'driver') {
 		editor.on("change", driverOnChange);
+		editor.on("cursorActivity", driverOnMove);
+		document.getElementById('follow-option').style.display = 'none';
 		let msg = {
 			messageType: "editorContent",
 			content: editor.getValue()
 		};
 		socket.send(JSON.stringify(msg));
 	} else if (msgObject.role === 'observer') {
+		document.getElementById('follow-option').style.display = '';
 		editor.on("beforeChange", observerOnChange);
 	}
+}
+
+function driverOnMove(instance) {
+	let pos = instance.getCursor();
+	let msg = {
+		messageType: "cursorChange",
+		line: pos.line,
+		ch: pos.ch
+	};
+	socket.send(JSON.stringify(msg));
+}
+
+function handleMove(msgObject) {
+	if (!followDriver || typeof msgObject.line !== "number" || typeof msgObject.ch !== "number") {
+		return;
+	}
+	editor.setCursor(msgObject);
 }
 
 function driverOnChange(instance, changeObj) {
@@ -257,6 +296,10 @@ function handleMessage(message) {
 		editor.on("beforeChange", observerOnChange);
 		break;
 
+	case "cursorChange":
+		handleMove(msgObject);
+		break;	
+
 	default:
 		console.log(msgObject);
 		break;
@@ -409,17 +452,6 @@ function onDescription(desc) {
 }
 
 
-//socket.changeLanguage(mode : string - the language to change to)
-socket.changeLanguage = function(mode) {
-	if (!mode) {
-		return;
-	}
-	let msg = {
-		messageType: "changeLanguage",
-		language: mode
-	};
-	socket.send(JSON.stringify(msg));
-}
 
 function switchRole() {
 	let msg = {

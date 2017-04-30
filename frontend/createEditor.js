@@ -3,8 +3,11 @@ var editor = CodeMirror.fromTextArea(myTextArea, {
 		lineNumbers: true,
 		mode: "javascript",
 		indentUnit: 4,
-		indentWithTabs: true
+		indentWithTabs: true,
+		styleActiveLine: true
 	});
+
+var dropdownButton = document.getElementById('dropdown-button');
 
 var modeInput = document.getElementById("mode");
 CodeMirror.modeURL = "codemirror-5.24.2/mode/%N/%N.js";
@@ -329,6 +332,42 @@ function submitChatText(){
 
 }
 
+function displayFullscreenMessage(textToDisplay) {
+	numberOfMessages = document.getElementById('chat-notification').children[0].innerText;
+
+	if (numberOfMessages > 0) {
+		numberOfMessages++;
+		document.getElementById('chat-notification').children[0].innerText = numberOfMessages;
+	} else {
+
+		document.getElementById('chat-notification').children[0].innerText = "1";
+
+		var y = document.getElementById('chat-notification');
+		y.style.display = 'block';
+		y.style.bottom = '10';
+		y.style.right = '10';
+		y.style.height = '40px';
+		y.style.width = '40px';
+
+	}
+
+	var newMessage = document.createElement('p');
+	if (textToDisplay.length > 40) {
+		newMessage.innerText = textToDisplay.slice(0,37) + "...";
+	}
+	else {
+		newMessage.innerText = textToDisplay;
+	}
+	newMessage.className = 'float';
+
+	var q = document.getElementById('chat-small');
+	q.appendChild(newMessage);
+
+	setTimeout(function(){
+		q.removeChild(newMessage);
+	}, 8000);
+}
+
 function displayMessage(messageText, username) {
 
 	if (username == undefined) {
@@ -346,48 +385,14 @@ function displayMessage(messageText, username) {
 	par.scrollTop = par.scrollHeight - par.offsetHeight;
 
 	if (document.getElementById('chat-area').style.display == 'none') {
-
-		numberOfMessages = document.getElementById('chat-notification').children[0].innerText;
-
-		if (numberOfMessages > 0) {
-			numberOfMessages++;
-			document.getElementById('chat-notification').children[0].innerText = numberOfMessages;
-		} else {
-
-			document.getElementById('chat-notification').children[0].innerText = "1";
-
-			var y = document.getElementById('chat-notification');
-			y.style.display = 'block';
-			y.style.bottom = '10';
-			y.style.right = '10';
-			y.style.height = '40px';
-			y.style.width = '40px';
-
-		}
-
-		var newMessage =document.createElement('p');
-		if (textToDisplay.length > 40) {
-			newMessage.innerText = textToDisplay.slice(0,37) + "...";
-		}
-		else {
-			newMessage.innerText = textToDisplay;
-		}
-		newMessage.id = 'float';
-
-		var q = document.getElementById('chat-preview');
-		q.appendChild(newMessage);
-
-		setTimeout(function(){
-			q.removeChild(q.lastChild);
-		},4000);
-
+		displayFullscreenMessage(textToDisplay);
 	}
 }
 
 function saveTextAsFile()
 {
 	var textToWrite = editor.getValue();
-    var textFileAsBlob = new Blob([textToWrite], {type:'text/plain'});
+	var textFileAsBlob = new Blob([textToWrite], {type:'text/plain'});
 
 	//This is hacky and yuck, replace it later with a proper pop up interface like the pairing
 	var fileNameToSaveAs = prompt("Save file as?", "");
@@ -397,18 +402,18 @@ function saveTextAsFile()
     downloadLink.innerHTML = "Download File";
     if (window.webkitURL != null)
     {
-        // Chrome allows the link to be clicked
-        // without actually adding it to the DOM.
-        downloadLink.href = window.webkitURL.createObjectURL(textFileAsBlob);
+	// Chrome allows the link to be clicked
+	// without actually adding it to the DOM.
+	downloadLink.href = window.webkitURL.createObjectURL(textFileAsBlob);
     }
     else
     {
-        // Firefox requires the link to be added to the DOM
-        // before it can be clicked.
-        downloadLink.href = window.URL.createObjectURL(textFileAsBlob);
-        downloadLink.onclick = destroyClickedElement;
-        downloadLink.style.display = "none";
-        document.body.appendChild(downloadLink);
+	// Firefox requires the link to be added to the DOM
+	// before it can be clicked.
+	downloadLink.href = window.URL.createObjectURL(textFileAsBlob);
+	downloadLink.onclick = destroyClickedElement;
+	downloadLink.style.display = "none";
+	document.body.appendChild(downloadLink);
     }
 
     downloadLink.click();
@@ -422,18 +427,20 @@ function clearEditorText() {
 
 function giveOptions() {
 	document.getElementById('dropdown-button').style.display = 'none';
-	var x = document.getElementById('toolbar')
-	x.style.display = 'block';
-	x.style.height = '10%';
+	document.getElementById('pullup-button').style.display = 'block';
+	document.getElementById('toolbar').style.display = 'block';
 }
 
 function closeOptions() {
 	document.getElementById('dropdown-button').style.display = 'block';
+	document.getElementById('pullup-button').style.display = 'none';
 	document.getElementById('toolbar').style.display = 'none';
 }
 
 function goFullScreen() {
 
+	document.getElementById('dropdown-button').style.display = 'none';
+	document.getElementById('pullup-button').style.display = 'none';
 	document.getElementById('chat-area').style.display = 'none';
 
 	var z = document.getElementById('close-fullscreen');
@@ -460,6 +467,8 @@ function goFullScreen() {
 function closeFullscreen() {
 
 	document.getElementById('chat-area').style.display = 'block';
+	document.getElementById('dropdown-button').style.display = 'none';
+	document.getElementById('pullup-button').style.display = 'block';
 
 	var x = document.getElementById('text-area');
 	x.style.position = 'relative';
@@ -487,3 +496,9 @@ changeLanguage();
 var storedText = retrieveFile();
 console.log(storedText);
 editor.setValue(storedText);
+
+var followDriver = true;
+var followOptionCheckbox = document.getElementById('follow-option-checkbox');
+followOptionCheckbox.onchange = e => {
+	followDriver = followOptionCheckbox.checked;
+}

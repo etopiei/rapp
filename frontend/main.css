@@ -43,14 +43,32 @@
 	position: relative;
 }
 
-#dropdown-button {
-	width: 100%;
-	height: 4%;
-	background-color: floralwhite;
+#dropdown-button, #pullup-button {
+	z-index:1000;
+	color: grey;
+	padding: 10px;
+	background: rgba(0, 0, 0, 0);
+	font-family: kayak;
+	position: absolute;
+	top: 0;
+	right: 0;
+}
+
+#subscript {
+	font-size: 0.4em;
 }
 
 #option-text {
 	margin-top: 2px;
+}
+
+#dropdown-button:hover, #pullup-button:hover {
+	cursor: pointer;
+	background: rgba(50, 50, 50, 125);
+}
+
+#dropdown-button:active, #pullup-button:active {
+	background: rgba(100, 100, 100, 125);
 }
 
 #option-text:hover {
@@ -113,7 +131,8 @@
 
 #text-area {
 	width: 100%;
-	height: 96%;
+	height: 100%;
+	position: relative;
 }
 
 #code {
@@ -352,37 +371,42 @@
 	font-size: 20px;
 	height: 100%;
 	width: 15%;
-	right: 80;
+	right: 80px;
 	top: 0;
 	color: white;
 }
 
-#float {
-	position: relative;
-	-webkit-animation: floatBubble 4s infinite  normal ease-out;
-	animation: floatBubble 4s infinite  normal ease-out;
+#chat-small {
+	position: absolute;
+	bottom: 0;
+	width: 100%;
 }
+
+.float {
+	position: relative;
+	bottom: 0;
+	background: #3366ff;
+	padding: 5px;
+	border: 1px solid white;
+	margin: 5px 0px;
+	border-radius: 3px;
+	-webkit-animation: floatBubble 8s infinite  normal ease-out;
+	animation: floatBubble 8s infinite  normal ease-out;
+}
+
 @-webkit-keyframes floatBubble {
-	0% {
-		top: 100%;
-	}
-	75% {
-		opacity: 0;
+	95% {
+		opacity: 1;
 	}
 	100% {
-		top: 0px;
 		opacity: 0;
 	}
 }
 @keyframes floatBubble {
-	0% {
-		top: 100%;
-	}
-	75% {
-		opacity: 0;
+	95% {
+		opacity: 1;
 	}
 	100% {
-		top: 0px;
 		opacity: 0;
 	}
 }
