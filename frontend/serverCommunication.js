@@ -89,6 +89,7 @@ function onPairStart(msgObject) {
 		socket.send(JSON.stringify(msg));
 	} else if (msgObject.role === 'observer') {
 		document.getElementById('follow-option').style.display = 'none';
+		editor.off("cursorActivity", driverOnMove);
 		editor.on("beforeChange", observerOnChange);
 	}
 }
@@ -104,7 +105,7 @@ function driverOnMove(instance) {
 }
 
 function handleMove(msgObject) {
-	if (!followDriver || typeof msgObject.line !== "number" || typeof msgObject.ch !== "number") {
+	if (role !== observer || !followDriver || typeof msgObject.line !== "number" || typeof msgObject.ch !== "number") {
 		return;
 	}
 	editor.setCursor(msgObject);
