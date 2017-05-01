@@ -78,6 +78,7 @@ function onPairStart(msgObject) {
 	let popup2 = document.getElementById('on-start-popup');
 	popup2.innerHTML = "<p>You're now paired as the " + msgObject.role + ".</p>";
 	popup2.style.display = 'block';
+	document.getElementById('background-dimmer').style.display = 'block';
 	if (msgObject.role === 'driver') {
 		editor.on("change", driverOnChange);
 		editor.on("cursorActivity", driverOnMove);
