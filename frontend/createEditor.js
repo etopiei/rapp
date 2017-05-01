@@ -397,6 +397,10 @@ function saveTextAsFile()
 	//This is hacky and yuck, replace it later with a proper pop up interface like the pairing
 	var fileNameToSaveAs = prompt("Save file as?", "");
 
+	if (fileNameToSaveAs === null){
+		return;
+	}
+
     var downloadLink = document.createElement("a");
     downloadLink.download = fileNameToSaveAs;
     downloadLink.innerHTML = "Download File";
