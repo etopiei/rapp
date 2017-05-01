@@ -15,7 +15,44 @@ function hidePopups() {
 	for (let i = 0; i < popups.length; i++) {
 		popups[i].style.display = 'none';
 	}
-	
+
 	dimmer.style.display="none";
 }
 
+function shareLink() {
+	if (document.getElementById('share').innerText == 'Share Link') {
+
+		var x = document.createElement('input');
+		x.style.display = 'none';
+		x.setAttribute('id', 'sharing-link');
+		var textToAdd = "https://rapp-code.com?id=";
+
+		if (document.getElementById('user-id').innerText !== null && document.getElementById('user-id').innerText != ''){
+
+			textToAdd = textToAdd + document.getElementById('user-id').innerText;
+			x.setAttribute('value', textToAdd);
+			document.getElementById('start-pair-popup').appendChild(x);
+			document.getElementById('sharing-link').select();
+
+			try {
+				var successful = document.execCommand('copy');
+				document.getElementById('share').innerText = 'Copied Link';
+				setTimeout(() => {
+					document.getElementById('share').innerText = 'Share Link';
+				}, 2000);
+	  		} catch (err) {
+	    		console.log('Oops, unable to copy!');
+				//display an error to the user here.
+				document.getElementById('share').innerText = 'Failed';
+				setTimeout(() => {
+					document.getElementById('share').innerText = 'Share Link';
+				}, 2000);
+	  		}
+		} else {
+			document.getElementById('share').innerText = 'Not Connected';
+			setTimeout(() => {
+				document.getElementById('share').innerText = 'Share Link';
+			}, 2000);
+		}
+	}
+}
