@@ -61,9 +61,13 @@ function onChangeRole(role) {
 	if (role === 'driver') {
 		editor.on("change", driverOnChange);
 		document.getElementById('follow-option').style.display = 'none';
+		document.getElementById('switch-button').setAttribute('class', 'side-button');
+		document.getElementById('clear').setAttribute('class', 'button');
 	} else {
 		editor.on("beforeChange", observerOnChange);
 		document.getElementById('follow-option').style.display = 'none';
+		document.getElementById('switch-button').setAttribute('class', 'side-button grayed-out');
+		document.getElementById('clear').setAttribute('class', 'button grayed-out');
 	}
 }
 
@@ -95,6 +99,8 @@ function onPairStart(msgObject) {
 		socket.send(JSON.stringify(msg));
 	} else if (msgObject.role === 'observer') {
 		document.getElementById('follow-option').style.display = 'none';
+		document.getElementById('switch-button').setAttribute('class', 'side-button grayed-out');
+		document.getElementById('clear').setAttribute('class', 'button grayed-out');
 		editor.off("cursorActivity", driverOnMove);
 		editor.on("beforeChange", observerOnChange);
 	}

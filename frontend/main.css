@@ -215,6 +215,19 @@
 
 }
 
+.grayed-out {
+	background-color: gray;
+}
+
+.grayed-out:hover {
+	background-color: gray;
+	cursor: default;
+}
+
+.grayed-out:active {
+	background-color: gray;
+}
+
 #background-dimmer {
 	display: none;
 	position: absolute;
