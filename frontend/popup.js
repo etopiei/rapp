@@ -1,6 +1,26 @@
 var popup = document.getElementById("start-pair-popup")
 var dimmer = document.getElementById("background-dimmer")
 
+function checkForPairID() {
+	let id = getParameterByName('id');
+	if (id == null){
+		displayPairPopup();
+	} else {
+		sendPairRequest(id);
+	}
+}
+
+function getParameterByName(name, url) {
+    //regex to get id from after ?=
+    if (!url) url = window.location.href;
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+}
+
 function displayPairPopup() {
 	popup.style.display="block";
 	dimmer.style.display="block";

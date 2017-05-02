@@ -31,8 +31,13 @@ partnerIdInput.onkeypress = e => {
 	}
 }
 
-function sendPairRequest() {
-	let id = partnerIdInput.value;
+function sendPairRequest(id) {
+
+	if (id === undefined || id === null) {
+
+		let id = partnerIdInput.value;
+
+	}
 
 	//a little easter egg
 	if (id === '01189998819991197253') {
