@@ -317,7 +317,7 @@
 	padding: 5px;
 	border-radius: 5px;
 	color: white;
-	width: 90%;
+	width: calc(100% - 20px);
 	margin: 5px;
 	text-align: center;
 }
