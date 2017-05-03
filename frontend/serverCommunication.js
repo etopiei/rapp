@@ -1,6 +1,6 @@
 var socket = null;
 try {
-	var socket = new WebSocket("wss://" + window.location.hostname + ":8000/pair");
+	var socket = new WebSocket("wss://" + window.location.hostname + ":443/pair");
 
 	socket.onopen = () => {console.log("You're now connected.");}
 	socket.onmessage = (message) => {handleMessage(message)}
@@ -58,7 +58,7 @@ function onChangeRole(role) {
 		document.getElementById('follow-option').style.display = 'none';
 	} else {
 		editor.on("beforeChange", observerOnChange);
-		document.getElementById('follow-option').style.display = '';
+		document.getElementById('follow-option').style.display = 'none';
 	}
 }
 
@@ -78,6 +78,7 @@ function onPairStart(msgObject) {
 	let popup2 = document.getElementById('on-start-popup');
 	popup2.innerHTML = "<p>You're now paired as the " + msgObject.role + ".</p>";
 	popup2.style.display = 'block';
+	document.getElementById('background-dimmer').style.display = 'block';
 	if (msgObject.role === 'driver') {
 		editor.on("change", driverOnChange);
 		editor.on("cursorActivity", driverOnMove);
@@ -88,8 +89,9 @@ function onPairStart(msgObject) {
 		};
 		socket.send(JSON.stringify(msg));
 	} else if (msgObject.role === 'observer') {
-		document.getElementById('follow-option').style.display = '';
+		document.getElementById('follow-option').style.display = 'none';
 		editor.on("beforeChange", observerOnChange);
+		editor.off("cursorActivity", driverOnMove);
 	}
 }
 
@@ -104,7 +106,7 @@ function driverOnMove(instance) {
 }
 
 function handleMove(msgObject) {
-	if (!followDriver || typeof msgObject.line !== "number" || typeof msgObject.ch !== "number") {
+	if (role !== "driver" || !followDriver || typeof msgObject.line !== "number" || typeof msgObject.ch !== "number") {
 		return;
 	}
 	editor.setCursor(msgObject);
