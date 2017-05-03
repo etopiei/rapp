@@ -8,11 +8,11 @@
 <title> rapp </title>
 </head>
 <body>
-    <div class="header shadow">
+    <div class="header">
         <center>
       <a href="#"><div class="nav-item selected" id="nav-item1">rapp</div></a>
       <a onclick="createDropDown()" id="burger"><img class="collapse" src="../images/burger.png" id="collapse"></img></a>
-      <a href="#scrollAbout" onclick="removeDropDown(1)"><div class="nav-item" id="nav-item2">Change Theme</div></a>
+      <a href="../mobile/mobile-settings.html" onclick="removeDropDown(1)"><div class="nav-item" id="nav-item2">Settings</div></a>
         <div id="code-choice" style="display:none">
             <p> Select Language: <select id="mode" onchange="changeLanguage()"><select>
                 Select theme: <select id="themeSelector" onchange="changeTheme()"> </select>
@@ -25,11 +25,10 @@
 				<span class="button" onclick="displayPairPopup()">
 					Start Pairing
 				</span>
-				
+
             </p>
         </div>
-        <a href="#scrollProjects" onclick="removeDropDown(2)"><div class="nav-item" id="nav-item3">Change Language</div></a>
-        <a href="../mobile/mobile-chat.html" onclick="removeDropDown()"><div class="nav-item" id="nav-item4">Switch to Chat</div></a>
+        <a href="../mobile/mobile-chat.html" onclick="removeDropDown()"><div class="nav-item" id="nav-item3">Switch to Chat</div></a>
         </center>
     </div>
     <div class="wrapper">
@@ -42,5 +41,6 @@
 <script src="../storage.js"></script>
 <script src="../loadmode.js"></script>
 <script src="../createEditor.js"></script>
+<script src="mobile-code.js"></script>
 
 </html>
