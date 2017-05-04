@@ -192,15 +192,67 @@ c_like = {
 	"Ceylon": "text/x-ceylon"
 };
 
-for (i in themes) {
-  theme = themes[i].name;
-  let item = document.createElement("div");
-  item.setAttribute("class","settingsItem");
-  item.innerHTML = theme;
-  item.addEventListener("click",function(){
-    console.log(this.innerHTML);
-    themeStorage(this.innerHTML);
-    
-  })
-  document.getElementById("settingsList").appendChild(item);
+//Bind events to headers
+document.getElementById("themeHeader").addEventListener("click",function(){
+	selected = document.getElementsByClassName("settingsTypeHeader selected");
+	if (selected.length > 0) selected[0].setAttribute("class", "settingsTypeHeader");
+	this.setAttribute("class", "settingsTypeHeader selected");
+
+	loadThemes();
+});
+//Bind events to headers
+document.getElementById("languageHeader").addEventListener("click",function(){
+	selected = document.getElementsByClassName("settingsTypeHeader selected");
+	if (selected.length > 0) selected[0].setAttribute("class", "settingsTypeHeader");
+	this.setAttribute("class", "settingsTypeHeader selected");
+
+	loadLang();
+});
+
+function loadThemes() {
+	document.getElementById("settingsList").innerHTML = "";
+	for (i in themes) {
+	  theme = themes[i].name;
+	  let item = document.createElement("div");
+	  item.setAttribute("class","settingsItem");
+		item.setAttribute("id",theme);
+	  item.innerHTML = theme;
+	  item.addEventListener("click",function(){
+	    console.log(this.innerHTML);
+	    themeStorage(this.innerHTML);
+			selected = document.getElementsByClassName("settingsItem selected");
+			if (selected.length > 0) selected[0].setAttribute("class", "settingsItem");
+			this.setAttribute("class", "settingsItem selected");
+	  })
+	  document.getElementById("settingsList").appendChild(item);
+	}
+
+	currentTheme = getThemeFromStorage();
+
+	if (currentTheme) document.getElementById(currentTheme).setAttribute("class", "settingsItem selected");
 }
+
+function loadLang() {
+	document.getElementById("settingsList").innerHTML = "";
+	for (i in modes) {
+	  mode = modes[i];
+	  let item = document.createElement("div");
+	  item.setAttribute("class","settingsItem");
+		item.setAttribute("id",mode);
+	  item.innerHTML = mode;
+	  item.addEventListener("click",function(){
+	    console.log(this.innerHTML);
+	    languageStorage(this.innerHTML);
+			selected = document.getElementsByClassName("settingsItem selected");
+			if (selected.length > 0) selected[0].setAttribute("class", "settingsItem");
+			this.setAttribute("class", "settingsItem selected");
+	  })
+	  document.getElementById("settingsList").appendChild(item);
+	}
+
+	currentLang = getLanguageFromStorage();
+
+	if (currentLang) document.getElementById(currentLang).setAttribute("class", "settingsItem selected");
+}
+
+loadThemes();

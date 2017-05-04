@@ -4,29 +4,19 @@
 <title> rapp </title>
 </head>
 <body>
-  <div id="background-dimmer" onclick="hidePopups()"></div>
-	<div id="start-pair-popup">
-		<p>Your id is <span class="variable" id="user-id"></span></p>
-		<input type="text" placeholder="Partner's ID" id="partner-id-input" />
-		<span class="button" onclick="sendPairRequest()">Connect</span>
-
-	</div>
   <center>
     <div class="header ">
-      <a href="#"><div class="nav-item selected" id="nav-item1">rapp</div></a>
+      <div id="title">rapp</div>
       <a onclick="createDropDown()" id="burger"><img class="collapse" src="../images/burger.png" id="collapse"></img></a>
       <a href="../mobile/mobile-code.html" onclick="removeDropDown()"><div class="nav-item" id="nav-item2">Switch to Code</div></a>
     </div>
   </center>
     <div class="wrapper CodeMirror">
-      <div class="settingsTypeHeader">
-        Language
-      </div>
-      <div class="settingsTypeHeader selected">
+      <div id="themeHeader" class="settingsTypeHeader selected">
         Theme
       </div>
-      <div class="settingsTypeHeader">
-        Keymap
+      <div id="languageHeader" class="settingsTypeHeader">
+        Language
       </div>
       <div id="settingsList">
       </div>
