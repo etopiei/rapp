@@ -122,13 +122,13 @@ body {
     overflow: hidden;
 }
 
-.wordwrap { 
+.wordwrap {
    overflow: scroll;
    margin-left: 5px;
-   white-space: pre-wrap;      /* CSS3 */   
-   white-space: -moz-pre-wrap; /* Firefox */    
-   white-space: -pre-wrap;     /* Opera <7 */   
-   white-space: -o-pre-wrap;   /* Opera 7 */    
+   white-space: pre-wrap;      /* CSS3 */
+   white-space: -moz-pre-wrap; /* Firefox */
+   white-space: -pre-wrap;     /* Opera <7 */
+   white-space: -o-pre-wrap;   /* Opera 7 */
    word-wrap: break-word;      /* IE */
 }
 
@@ -148,7 +148,7 @@ body {
 
 .button:active {
 	background: rgba(33, 99, 62, 1);
-	
+
 }
 
 #background-dimmer {
@@ -163,8 +163,8 @@ body {
 
 #start-pair-popup {
 	position: absolute;
-	width: 30%;
-	height: 30%;
+	width: 40%;
+	height: auto;
 	z-index: 11;
 	background: white;
 	margin: auto;
@@ -174,7 +174,23 @@ body {
 	font-size: 2em;
 	padding: 1em;
 }
-
+#start-pair-popup h1 {
+  text-align:center;
+  font-size:36px;
+  margin-bottom:5px;
+}
+#start-pair-popup p {
+  font-size:24px;
+}
 #start-pair-popup input {
+  width:90%;
+  margin:4px calc(5% - 2px);
+	font-size: 24px;
+}
+#start-pair-popup .button {
+  width:120px;
+  margin: 0px calc((100% - 130px)/2);
+  margin-top:10px;
 	font-size: 1em;
+  text-align:center;
 }
