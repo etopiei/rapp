@@ -112,6 +112,9 @@ func sendToPairChannel(u *userInfo) error {
 	return nil
 }
 
+func redirect(w http.ResponseWriter, req *http.Request) {
+	http.Redirect(w, req, "https://rapp-code.com", http.StatusTemporaryRedirect);
+}
 func write(w http.ResponseWriter, req *http.Request) {
 	if req.RequestURI[0] == '/' {
 		req.RequestURI = req.RequestURI[1:]
@@ -248,9 +251,10 @@ func pairLoop(pair *pairInfo) {
 
 func main() {
 	users = make(map[int]*userInfo)
+	go http.ListenAndServe(":80", http.HandlerFunc(redirect));
 
 	fmt.Println("starting server")
 	http.HandleFunc("/pair", onConnect)
 	http.HandleFunc("/", write)
-	http.ListenAndServeTLS(":8000", "../cert.pem", "../key.pem", nil)
+	http.ListenAndServeTLS(":443", "/etc/letsencrypt/live/rapp-code.com/fullchain.pem", "/etc/letsencrypt/live/rapp-code.com/privkey.pem", nil)
 }

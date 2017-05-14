@@ -2,3 +2,4 @@ cert.pem
 key.pem
 backend/backend
 server
+frontend/nohup.out

@@ -257,6 +257,7 @@ function changeTheme() {
 	let index = themeSelector.selectedIndex;
 	let themeFile = themes[index].name;
 	themeStorage(themeFile);
+  
 	if (!themes[index].loaded) {
 		loadTheme(themeFile);
 		themes[index].loaded = true;

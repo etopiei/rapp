@@ -1,6 +1,7 @@
 var socket = null;
 try {
-	var socket = new WebSocket("wss://" + window.location.hostname + ":8000/pair");
+  
+	var socket = new WebSocket("wss://" + window.location.hostname + ":443/pair");
 
 	socket.onopen = () => {console.log("You're now connected.");}
 	socket.onmessage = (message) => {handleMessage(message)}
@@ -117,7 +118,7 @@ function driverOnMove(instance) {
 }
 
 function handleMove(msgObject) {
-	if (role !== observer || !followDriver || typeof msgObject.line !== "number" || typeof msgObject.ch !== "number") {
+	if (role !== 'observer' || !followDriver || typeof msgObject.line !== "number" || typeof msgObject.ch !== "number") {
 		return;
 	}
 	editor.setCursor(msgObject);

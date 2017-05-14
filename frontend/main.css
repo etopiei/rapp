@@ -230,9 +230,9 @@
 .grayed-out:active {
 	background-color: gray;
 }
-
+  
 #background-dimmer {
-	display: none;
+  display: none;
 	position: absolute;
 	width: 100%;
 	height: 100%;
@@ -262,6 +262,7 @@
 
 #start-pair-popup {
 	font-family: kayak;
+	display: block;
 	z-index: 11;
 	background: white;
 	font-size: 2em;
