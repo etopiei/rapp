@@ -127,3 +127,34 @@ function fileStorage(textContent) {
 	}
 
 }
+
+function saveTextAsFile()
+{
+	var textToWrite = editor.getValue();
+	var textFileAsBlob = new Blob([textToWrite], {type:'text/plain'});
+
+	//This is hacky and yuck, replace it later with a proper pop up interface like the pairing
+	var fileNameToSaveAs = prompt("Save file as?", "");
+
+    var downloadLink = document.createElement("a");
+    downloadLink.download = fileNameToSaveAs;
+    downloadLink.innerHTML = "Download File";
+    if (window.webkitURL != null)
+    {
+	// Chrome allows the link to be clicked
+	// without actually adding it to the DOM.
+	downloadLink.href = window.webkitURL.createObjectURL(textFileAsBlob);
+    }
+    else
+    {
+	// Firefox requires the link to be added to the DOM
+	// before it can be clicked.
+	downloadLink.href = window.URL.createObjectURL(textFileAsBlob);
+	downloadLink.onclick = destroyClickedElement;
+	downloadLink.style.display = "none";
+	document.body.appendChild(downloadLink);
+    }
+
+    downloadLink.click();
+	downloadLink.remove();
+}

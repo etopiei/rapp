@@ -37,6 +37,7 @@
 }
 
 .right-side {
+	font-family: kayak;
 	width: 20%;
 	float: right;
 	background: floralwhite;
@@ -72,11 +73,13 @@
 }
 
 #option-text:hover {
+	font-family: kayak;
 	cursor: pointer;
 }
 
 #toolbar {
 	display: none;
+	font-family: kayak;
 	width: 100%;
 	height: 7%;
 	background-color: floralwhite;
@@ -215,7 +218,21 @@
 
 }
 
+.grayed-out {
+	background-color: gray;
+}
+
+.grayed-out:hover {
+	background-color: gray;
+	cursor: default;
+}
+
+.grayed-out:active {
+	background-color: gray;
+}
+  
 #background-dimmer {
+  display: none;
 	position: absolute;
 	width: 100%;
 	height: 100%;
@@ -244,6 +261,7 @@
 }
 
 #start-pair-popup {
+	font-family: kayak;
 	display: block;
 	z-index: 11;
 	background: white;
@@ -304,7 +322,7 @@
 	padding: 5px;
 	border-radius: 5px;
 	color: white;
-	width: 90%;
+	width: calc(100% - 20px);
 	margin: 5px;
 	text-align: center;
 }

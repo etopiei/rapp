@@ -1,5 +1,6 @@
 var socket = null;
 try {
+  
 	var socket = new WebSocket("wss://" + window.location.hostname + ":443/pair");
 
 	socket.onopen = () => {console.log("You're now connected.");}
@@ -31,8 +32,13 @@ partnerIdInput.onkeypress = e => {
 	}
 }
 
-function sendPairRequest() {
-	let id = partnerIdInput.value;
+function sendPairRequest(id) {
+
+	if (id === undefined || id === null) {
+
+		let id = partnerIdInput.value;
+
+	}
 
 	//a little easter egg
 	if (id === '01189998819991197253') {
@@ -56,9 +62,13 @@ function onChangeRole(role) {
 	if (role === 'driver') {
 		editor.on("change", driverOnChange);
 		document.getElementById('follow-option').style.display = 'none';
+		document.getElementById('switch-button').setAttribute('class', 'side-button');
+		document.getElementById('clear').setAttribute('class', 'button');
 	} else {
 		editor.on("beforeChange", observerOnChange);
 		document.getElementById('follow-option').style.display = 'none';
+		document.getElementById('switch-button').setAttribute('class', 'side-button grayed-out');
+		document.getElementById('clear').setAttribute('class', 'button grayed-out');
 	}
 }
 
@@ -90,8 +100,10 @@ function onPairStart(msgObject) {
 		socket.send(JSON.stringify(msg));
 	} else if (msgObject.role === 'observer') {
 		document.getElementById('follow-option').style.display = 'none';
-		editor.on("beforeChange", observerOnChange);
+		document.getElementById('switch-button').setAttribute('class', 'side-button grayed-out');
+		document.getElementById('clear').setAttribute('class', 'button grayed-out');
 		editor.off("cursorActivity", driverOnMove);
+		editor.on("beforeChange", observerOnChange);
 	}
 }
 
@@ -106,7 +118,7 @@ function driverOnMove(instance) {
 }
 
 function handleMove(msgObject) {
-	if (role !== "driver" || !followDriver || typeof msgObject.line !== "number" || typeof msgObject.ch !== "number") {
+	if (role !== 'observer' || !followDriver || typeof msgObject.line !== "number" || typeof msgObject.ch !== "number") {
 		return;
 	}
 	editor.setCursor(msgObject);
@@ -125,6 +137,16 @@ function observerOnChange(instance, changeObj) {
 	//cancel changes made by the observer
 	if (changeObj.from.src !== 'outside') {
 		changeObj.cancel()
+		let addWidget = false;
+		for (let i = 0; i < changeObj.text.length; i++) {
+			let char = changeObj.text[i];
+			if (char.length > 0) {
+				addWidget = true;
+				break;
+			}
+		}
+		if (addWidget && allowNewWidget)
+			makeComment(changeObj);
 	}
 }
 
@@ -290,7 +312,7 @@ function handleMessage(message) {
 
 	case "cursorChange":
 		handleMove(msgObject);
-		break;	
+		break;
 
 	default:
 		console.log(msgObject);

@@ -257,7 +257,11 @@ function changeTheme() {
 	let index = themeSelector.selectedIndex;
 	let themeFile = themes[index].name;
 	themeStorage(themeFile);
-	loadTheme(themeFile);
+  
+	if (!themes[index].loaded) {
+		loadTheme(themeFile);
+		themes[index].loaded = true;
+	}
 	editor.setOption("theme", themes[index].name);
 }
 
@@ -305,195 +309,9 @@ function changeLanguage() {
 	}
 }
 
-document.getElementById('chat-text').onkeypress = function(e) {
-
-	if (!e) e = window.event;
-	var keyCode = e.keyCode || e.whichl
-	if (keyCode == '13') {
-		submitChatText();
-	}
-
-}
-
-function submitChatText(){
-
-	var chatBox = document.getElementById('chat-text');
-
-	var message = chatBox.value;
-
-	if (message == "") {
-		return;
-	}
-
-	sendMessage(message);
-
-	//clear chat box
-	chatBox.value = "";
-
-}
-
-function displayFullscreenMessage(textToDisplay) {
-	numberOfMessages = document.getElementById('chat-notification').children[0].innerText;
-
-	if (numberOfMessages > 0) {
-		numberOfMessages++;
-		document.getElementById('chat-notification').children[0].innerText = numberOfMessages;
-	} else {
-
-		document.getElementById('chat-notification').children[0].innerText = "1";
-
-		var y = document.getElementById('chat-notification');
-		y.style.display = 'block';
-		y.style.bottom = '10';
-		y.style.right = '10';
-		y.style.height = '40px';
-		y.style.width = '40px';
-
-	}
-
-	var newMessage = document.createElement('p');
-	if (textToDisplay.length > 40) {
-		newMessage.innerText = textToDisplay.slice(0,37) + "...";
-	}
-	else {
-		newMessage.innerText = textToDisplay;
-	}
-	newMessage.className = 'float';
-
-	var q = document.getElementById('chat-small');
-	q.appendChild(newMessage);
-
-	setTimeout(function(){
-		q.removeChild(newMessage);
-	}, 8000);
-}
-
-function displayMessage(messageText, username) {
-
-	if (username == undefined) {
-		username = "Guest"
-	}
-
-	textToDisplay = username + ": " + messageText;
-
-	let p = document.createElement('p');
-	p.innerText = textToDisplay;
-
-	let display = document.getElementById('messages-display');
-	display.appendChild(p);
-	let par = display.parentElement;
-	par.scrollTop = par.scrollHeight - par.offsetHeight;
-
-	if (document.getElementById('chat-area').style.display == 'none') {
-		displayFullscreenMessage(textToDisplay);
-	}
-}
-
-function saveTextAsFile()
-{
-	var textToWrite = editor.getValue();
-	var textFileAsBlob = new Blob([textToWrite], {type:'text/plain'});
-
-	//This is hacky and yuck, replace it later with a proper pop up interface like the pairing
-	var fileNameToSaveAs = prompt("Save file as?", "");
-
-	if (fileNameToSaveAs === null){
-
-		return;
-
-	} else {
-
-		var downloadLink = document.createElement("a");
-	    downloadLink.download = fileNameToSaveAs;
-	    downloadLink.innerHTML = "Download File";
-	    if (window.webkitURL != null)
-	    {
-		// Chrome allows the link to be clicked
-		// without actually adding it to the DOM.
-		downloadLink.href = window.webkitURL.createObjectURL(textFileAsBlob);
-	    }
-	    else
-	    {
-		// Firefox requires the link to be added to the DOM
-		// before it can be clicked.
-		downloadLink.href = window.URL.createObjectURL(textFileAsBlob);
-		downloadLink.onclick = destroyClickedElement;
-		downloadLink.style.display = "none";
-		document.body.appendChild(downloadLink);
-	    }
-
-	    downloadLink.click();
-		downloadLink.remove();
-
-	}
-}
-
 function clearEditorText() {
 	editor.setValue("");
 	fileStorage("");
-}
-
-function giveOptions() {
-	document.getElementById('dropdown-button').style.display = 'none';
-	document.getElementById('pullup-button').style.display = 'block';
-	document.getElementById('toolbar').style.display = 'block';
-}
-
-function closeOptions() {
-	document.getElementById('dropdown-button').style.display = 'block';
-	document.getElementById('pullup-button').style.display = 'none';
-	document.getElementById('toolbar').style.display = 'none';
-}
-
-function goFullScreen() {
-
-	document.getElementById('dropdown-button').style.display = 'none';
-	document.getElementById('pullup-button').style.display = 'none';
-	document.getElementById('chat-area').style.display = 'none';
-
-	var z = document.getElementById('close-fullscreen');
-	z.style.position = 'absolute';
-	z.style.display = 'block';
-	z.style.top = '10';
-	z.style.right = '10';
-	z.style.height = '40px';
-	z.style.width = '40px';
-
-	var x = document.getElementById('text-area');
-	x.style.position = 'absolute';
-	x.style.top = '0';
-	x.style.left = '0';
-	x.style.width = '100%';
-	x.style.height = '100%';
-	x.style.zIndex = '800';
-
-	var q = document.getElementById('chat-preview');
-	q.style.display = 'block';
-
-}
-
-function closeFullscreen() {
-
-	document.getElementById('chat-area').style.display = 'block';
-	document.getElementById('dropdown-button').style.display = 'none';
-	document.getElementById('pullup-button').style.display = 'block';
-
-	var x = document.getElementById('text-area');
-	x.style.position = 'relative';
-	x.style.width = '100%';
-	x.style.height = '100%';
-	x.style.zIndex = '1';
-
-	var z = document.getElementById('close-fullscreen');
-	z.style.display = 'none';
-
-	var y = document.getElementById('chat-notification');
-	y.style.display = 'none';
-	y.children[0].innerText = "";
-
-	var q = document.getElementById('chat-preview');
-	q.style.display = 'none';
-
 }
 
 setOriginalTheme();

@@ -20,6 +20,8 @@
 		<p>Your id is <span class="variable" id="user-id"></span></p>
 		<input type="text" placeholder="Partner's ID" id="partner-id-input" />
 		<span class="button" onclick="sendPairRequest()">Connect</span>
+		<span id="share" class="button" onclick="shareLink()">Share Link</span>
+
 
 	</div>
 
@@ -71,7 +73,7 @@
 							<span class="button" onclick="saveTextAsFile()">
 								Save
 							</span>
-							<span class="button" onclick="clearEditorText()">
+							<span id="clear" class="button" onclick="clearEditorText()">
 								Clear
 							</span>
 							<span class="button" onclick="goFullScreen()">
@@ -138,9 +140,13 @@
 	</div>
 
 <script src="storage.js"></script>
+<script src="chat.js"></script>
+<script src="dropdown.js"></script>
+<script src="fullscreen.js"></script>
 <script src="createEditor.js"></script>
 <script src="serverCommunication.js"></script>
-<script src="user-interface.js"></script>
+<script src="popup.js"></script>
+<script>checkForPairID()</script>
 <script src="codemirror-5.24.2/keymap/emacs.js"></script>
 <script src="codemirror-5.24.2/keymap/sublime.js"></script>
 <script src="codemirror-5.24.2/keymap/vim.js"></script>
@@ -155,6 +161,4 @@ ga('send', 'pageview');
 </script>
 
 </body>
-
-
 </html>

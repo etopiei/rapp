@@ -115,7 +115,6 @@ func sendToPairChannel(u *userInfo) error {
 func redirect(w http.ResponseWriter, req *http.Request) {
 	http.Redirect(w, req, "https://rapp-code.com", http.StatusTemporaryRedirect);
 }
-
 func write(w http.ResponseWriter, req *http.Request) {
 	if req.RequestURI[0] == '/' {
 		req.RequestURI = req.RequestURI[1:]
@@ -252,7 +251,6 @@ func pairLoop(pair *pairInfo) {
 
 func main() {
 	users = make(map[int]*userInfo)
-
 	go http.ListenAndServe(":80", http.HandlerFunc(redirect));
 
 	fmt.Println("starting server")
