@@ -37,6 +37,7 @@
 }
 
 .right-side {
+	font-family: kayak;
 	width: 20%;
 	float: right;
 	background: floralwhite;
@@ -72,11 +73,13 @@
 }
 
 #option-text:hover {
+	font-family: kayak;
 	cursor: pointer;
 }
 
 #toolbar {
 	display: none;
+	font-family: kayak;
 	width: 100%;
 	height: 7%;
 	background-color: floralwhite;
@@ -258,6 +261,7 @@
 }
 
 #start-pair-popup {
+	font-family: kayak;
 	z-index: 11;
 	background: white;
 	font-size: 2em;
