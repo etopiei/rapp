@@ -1,0 +1,127 @@
+@font-face {
+    font-family: kayak;
+    src: url(../frontend/kayak-sans-light.otf);
+}
+
+body {
+  /* background-color: #6793BA; */
+  background-color: floralwhite;
+  animation-duration: 0.001s;
+  font-family: kayak;
+  margin:0;
+}
+
+.header {
+  background-color: #21633E;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 999;
+  width: 100%;
+  height: 100px;
+  display: table;
+}
+
+.nav-item:hover {
+  background-color: white;
+}
+
+.nav-item {
+    font-size: 40px;
+    cursor:pointer;
+}
+
+#nav-item2 {
+  display: none;
+}
+
+#nav-item3 {
+  display: none;
+}
+
+#nav-item4 {
+  display: none;
+}
+
+#title {
+  color: #F5F5F8;
+  font-size: 64px;
+  font-family: kayak;
+  height: 90%;
+  padding: 20px;
+  display: inline-block;
+  margin-left: 112px;
+}
+
+.collapse {
+  float: right;
+  width: 60px;
+  height: 60px;
+  padding: 32px;
+}
+
+a {
+  text-decoration: none;
+}
+
+.wrapper {
+  position: fixed;
+  height: 90%;
+  width: 100%;
+  margin-top: 123px;
+}
+
+#button-area {
+  vertical-align: center;
+  display: table;
+  margin-top: 5px;
+  width: 100%;
+  height: 10px;
+}
+
+.settingsTypeHeader {
+  width:20%;
+  height:50px;
+  font-size:24px;
+  text-align:center;
+  margin: 0px 15%;
+  float:left;
+  line-height:50px;
+  cursor:pointer;
+}
+.settingsTypeHeader:hover {
+  background-color:#21633E;
+  opacity:0.2;
+}
+.settingsTypeHeader.selected {
+  background-color:#21633E;
+  color:white;
+  border-bottom-radius:10px;
+  border-bottom-radius:10px;
+  opacity:1 !important;
+}
+
+#settingsList {
+  width:80%;
+  float:left;
+  padding: 0 10%;
+  height:calc(90% - 70px);
+  overflow:scroll;
+  box-shadow: 0px 0px 10px 2px rgba(0,0,0,0.4) inset;
+  background-color:white;
+  padding-top:20px;
+}
+.settingsItem {
+  width:80%;
+  height:40px;
+  padding:5px 10%;
+  text-align:center;
+  margin-bottom:10px;
+  line-height:45px;
+  cursor:pointer;
+  box-shadow: 0px 0px 10px 2px rgba(0,0,0,0.2) inset;
+  border-radius:20px;
+}
+.settingsItem:hover, .settingsItem.selected {
+  background:lightgrey;
+}

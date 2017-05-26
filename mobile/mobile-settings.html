@@ -1,0 +1,29 @@
+<html>
+<head>
+<link rel=StyleSheet href="mobile-settings.css" type="text/css" media=screen>
+<title> rapp </title>
+</head>
+<body>
+  <center>
+    <div class="header ">
+      <div id="title">rapp</div>
+      <a onclick="createDropDown()" id="burger"><img class="collapse" src="../frontend/images/burger.png" id="collapse"></img></a>
+      <a href="mobile-code.html" onclick="removeDropDown()"><div class="nav-item" id="nav-item2">Switch to Code</div></a>
+    </div>
+  </center>
+    <div class="wrapper CodeMirror">
+      <div id="themeHeader" class="settingsTypeHeader selected">
+        Theme
+      </div>
+      <div id="languageHeader" class="settingsTypeHeader">
+        Language
+      </div>
+      <div id="settingsList">
+      </div>
+    </div>
+
+<script src="drop2.js"></script>
+<script src="../frontend/storage.js"></script>
+<script src="mobile-settings.js"></script>
+
+</html>
