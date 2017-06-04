@@ -55,7 +55,10 @@ function shareLink() {
 			document.getElementById('sharing-link').select();
 
 			try {
-				var successful = document.execCommand('copy');
+				let successful = document.execCommand('copy');
+				if (!successful) {
+					throw 'fail';
+				}
 				document.getElementById('share').innerText = 'Copied Link';
 				setTimeout(() => {
 					document.getElementById('share').innerText = 'Share Link';
