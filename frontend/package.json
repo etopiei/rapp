@@ -2,10 +2,31 @@
   "name": "rapp-frontend",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "index.tsx",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/etopiei/rapp.git"
+  },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/etopiei/rapp/issues"
+  },
+  "homepage": "https://github.com/etopiei/rapp#readme",
+  "dependencies": {
+    "@types/codemirror": "0.0.41",
+    "@types/react": "^15.0.34",
+    "@types/react-dom": "^15.5.1",
+    "codemirror": "^5.27.4",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1"
+  },
+  "devDependencies": {
+    "awesome-typescript-loader": "^3.2.1",
+    "source-map-loader": "^0.2.1",
+    "typescript": "^2.4.1"
+  }
 }

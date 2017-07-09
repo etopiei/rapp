@@ -3,3 +3,4 @@ key.pem
 backend/backend
 server
 frontend/nohup.out
+node_modules/
