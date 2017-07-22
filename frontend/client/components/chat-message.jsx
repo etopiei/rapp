@@ -4,14 +4,9 @@ import Title from "./title";
 
 export default class ChatMessage extends React.Component {
 
-	constructor() {
-		super();
-		this.state = {};
-	}
-
 	render() {
-		return <div class="pane" style={{width: this.props.width}}>
-			<Title text="rapp" bg={this.props.bg} fg={this.props.fg} />
+		return <div className="chat-message">
+			<span className="sender">{this.props.sender}</span>: {this.props.text}
 		</div>
 	}
 }

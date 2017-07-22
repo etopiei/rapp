@@ -1,23 +1,22 @@
-
 import React from "react";
 import ReactDOM from "react-dom";
 import ChatMessage from "./chat-message"
 
-export default class Setting extends React.Component {
+export default class ChatWindow extends React.Component {
 
 	constructor() {
 		super();
-		this.state = {messages: []};
+		this.state = {messages: [{sender: 'andrew', text: 'hello'}]};
 	}
 
 	render() {
 		return <div>
-			<div class="window" style={{color: this.props.fg, background: this.props.bg}}>
+			<div className="window" style={{color: this.props.fg, background: this.props.bg}}>
 				{this.state.messages.map(message => {
 					return <ChatMessage sender={message.sender} text={message.text} />
 				})}
 			</div>
-			<textarea class="chat-input"></textarea>
+			<textarea id="chat-input"></textarea>
 		</div>
 	}
 }

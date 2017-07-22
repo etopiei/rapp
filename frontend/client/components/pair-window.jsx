@@ -8,11 +8,11 @@ export default class PairWindow extends React.Component {
 			this.state = {pairedUsers: []};
 		}
 
-		return <div class="window">
+		return <div className="window">
 			{this.state.pairedUsers.map(username => {
 				return <p>{username}</p>
 			})}
-			<input type="text" placeholder="" />
+			<input type="text" placeholder="User code" />
 		</div>
 	}
 }
