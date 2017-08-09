@@ -4,5 +4,6 @@ module.exports = {
 	indentUnit: 8,
 	tabSize: 8,
 	indentWithTabs: true,
-	lineNumbers: true
+	lineNumbers: true,
+	styleActiveLine: true
 }

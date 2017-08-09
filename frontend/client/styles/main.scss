@@ -1,6 +1,11 @@
 @import '../../node_modules/codemirror/lib/codemirror.css';
 @import url('https://fonts.googleapis.com/css?family=Catamaran');
 
+* {
+	background: inherit;
+	color: inherit;
+}
+
 body {
 	font-family: 'Catamaran', sans-serif;
 }
@@ -10,6 +15,11 @@ body {
         float: left;
         width: 15%;
         height: 100%;
+	overflow: auto;
+}
+
+.react-pane {
+	min-height: 100%;
 }
 
 #centre {
@@ -30,12 +40,23 @@ html, body {
         padding: 0;
 }
 
-.full-height {
-	height: 100%;
-}
-
 h1.title {
 	width: 100%;
 	text-align: center;
+	padding: 0.3em 0;
 	margin: 0;
+}
+
+.off-edge {
+	padding: 5px;
+}
+
+#chat-input {
+	width: 100%;
+	height: 4em;
+	resize: none;
+}
+
+select {
+	text-align: right;
 }

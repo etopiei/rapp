@@ -6,7 +6,7 @@ export default class RightPane extends React.Component {
 
 	constructor() {
 		super();
-		this.state = {};
+		this.state = {colors: {fg: 'rgb(235, 239, 231)', bg: 'rgb(38, 38, 38)', accent: 'rgb(115, 140, 115)'}};
 	}
 
 	componentDidMount() {
@@ -14,8 +14,8 @@ export default class RightPane extends React.Component {
 	}
 
 	render() {
-		return <div className="full-height" style={{width: this.props.width, backgroundColor: this.state.bg, color: this.state.fg, borderLeft: `1px solid ${this.state.accent}`}}>
-			<ChatWindow fg={this.state.fg} bg={this.state.bg} />
+		return <div className="react-pane full-height" style={{width: this.props.width, backgroundColor: this.state.colors.bg, color: this.state.colors.fg, borderLeft: `1px solid ${this.state.colors.fg}`}}>
+			<ChatWindow colors={this.state.colors} />
 		</div>
 	}
 }
